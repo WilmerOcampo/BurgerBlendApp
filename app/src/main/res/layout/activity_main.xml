@@ -30,7 +30,7 @@
                     android:id="@+id/textView_holaUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
                     android:text="Hola Usuario"
                     android:textColor="@color/red"
@@ -64,9 +64,9 @@
                     android:id="@+id/editText_buscarComida"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/search_background"
                     android:drawableStart="@drawable/search"
                     android:drawablePadding="10dp"
@@ -74,8 +74,10 @@
                     android:hint="Encuentra tu comida"
                     android:inputType="text"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textSize="14sp"
                     android:textStyle="italic"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView_ordenarDisfrutar" />
@@ -84,7 +86,7 @@
                     android:id="@+id/textView_categorias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="Categorías"
                     android:textColor="@color/black"
@@ -97,6 +99,8 @@
                     android:id="@+id/recyclerView_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView_categorias" />
@@ -105,7 +109,7 @@
                     android:id="@+id/textView_popular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="Popular"
                     android:textColor="@color/black"
@@ -117,6 +121,8 @@
                     android:id="@+id/recyclerView_popular"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView_popular" />
@@ -125,9 +131,9 @@
                     android:id="@+id/constraintLayout_orangeLightBanner"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/orange_light_banner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,11 +198,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
     </ScrollView>
 
@@ -212,8 +215,8 @@
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
             android:layout_gravity="bottom"
+            android:backgroundTint="@color/white"
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="50dp"
             app:fabCradleVerticalOffset="6dp">
@@ -228,7 +231,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:orientation="vertical">
-
 
                     <ImageView
                         android:id="@+id/imageView_homeApp"
@@ -252,7 +254,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:orientation="vertical">
-
 
                     <ImageView
                         android:id="@+id/imageView_perfilApp"
@@ -278,8 +279,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/shopping_cart" />
+                        android:layout_height="40dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -320,12 +320,10 @@
                     android:layout_weight="0.2"
                     android:orientation="vertical">
 
-
                     <ImageView
                         android:id="@+id/imageView_ajustesApp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-
                         app:srcCompat="@drawable/baseline_settings_24" />
 
                     <TextView
@@ -333,13 +331,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Ajustes"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textAlignment="center"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
-
         </com.google.android.material.bottomappbar.BottomAppBar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -358,13 +354,11 @@
                 app:backgroundTint="@color/orange"
                 app:layout_constraintBottom_toBottomOf="@id/shoppingCart"
                 app:layout_constraintEnd_toEndOf="@id/shoppingCart"
-                app:layout_constraintStart_toStartOf="@id/shoppingCart" />
-
+                app:layout_constraintStart_toStartOf="@id/shoppingCart"
+                app:maxImageSize="35dp"
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
