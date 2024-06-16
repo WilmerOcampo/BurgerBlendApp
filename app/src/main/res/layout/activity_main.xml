@@ -83,7 +83,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView_ordenarDisfrutar" />
 
                 <TextView
-                    android:id="@+id/textView_categorias"
+                    android:id="@+id/textView_categories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -96,17 +96,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout_orangeLightBanner" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_categoria"
+                    android:id="@+id/recyclerView_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_categorias" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_categories" />
 
                 <TextView
-                    android:id="@+id/textView_popular"
+                    android:id="@+id/textView_popularFoods"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -115,7 +115,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_categoria" />
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_category" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_popularFood"
@@ -125,7 +125,7 @@
                     android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_popular" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_popularFoods" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout_orangeLightBanner"
@@ -349,6 +349,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/orange"
+                android:contentDescription="Cart"
                 android:elevation="3dp"
                 android:src="@drawable/baseline_shopping_cart_24"
                 app:backgroundTint="@color/orange"

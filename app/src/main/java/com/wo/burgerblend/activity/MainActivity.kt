@@ -8,15 +8,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
-import com.wo.burgerblend.adapter.CategoriaAdapter
+import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
-import com.wo.burgerblend.domain.Categoria
+import com.wo.burgerblend.domain.Category
 import com.wo.burgerblend.domain.Food
 
 class MainActivity : AppCompatActivity() {
 
     private var adapter: RecyclerView.Adapter<*>? = null
-    private var recyclerViewCategorias: RecyclerView? = null
+    private var recyclerViewCategory: RecyclerView? = null
     private var recyclerViewPopularFood: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,24 +28,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        recyclerViewCategoria()
+        recyclerViewCategory()
         recyclerViewPopularFood()
     }
 
-    private fun recyclerViewCategoria() {
+    private fun recyclerViewCategory() {
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewCategorias = findViewById(R.id.recyclerView_categoria)
-        recyclerViewCategorias!!.layoutManager = linearLayoutManager
+        recyclerViewCategory = findViewById(R.id.recyclerView_category)
+        recyclerViewCategory!!.layoutManager = linearLayoutManager
 
-        val categorias: ArrayList<Categoria> = ArrayList()
-        categorias.add(Categoria(1, "Pizzas", "cat_1"))
-        categorias.add(Categoria(2, "Hamburguesas", "cat_2"))
-        categorias.add(Categoria(3, "Hot Dogs", "cat_3"))
-        categorias.add(Categoria(4, "Bebidas", "cat_4"))
-        categorias.add(Categoria(5, "Donas", "cat_5"))
+        val categories: ArrayList<Category> = ArrayList()
+        categories.add(Category(1, "Pizzas", "cat_1"))
+        categories.add(Category(2, "Hamburguesas", "cat_2"))
+        categories.add(Category(3, "Hot Dogs", "cat_3"))
+        categories.add(Category(4, "Bebidas", "cat_4"))
+        categories.add(Category(5, "Donas", "cat_5"))
 
-        adapter = CategoriaAdapter(categorias)
-        recyclerViewCategorias!!.adapter = adapter
+        adapter = CategoryAdapter(categories)
+        recyclerViewCategory!!.adapter = adapter
     }
 
     private fun recyclerViewPopularFood(){
