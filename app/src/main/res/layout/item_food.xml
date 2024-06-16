@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/cart_background"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/textView_nameFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="4dp"
+        android:text="Name"
+        android:textColor="#373B54"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_imageFood"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_nameFood"
+        app:srcCompat="@drawable/pop_1" />
+
+    <TextView
+        android:id="@+id/textView_priceFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0"
+        android:textColor="#373B54"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_imageFood"
+        app:layout_constraintStart_toStartOf="@+id/imageView_imageFood"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_imageFood" />
+
+    <TextView
+        android:id="@+id/textView_sPriceFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S/. "
+        android:textColor="@color/orange"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView_priceFood"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_imageFood" />
+
+    <TextView
+        android:id="@+id/textView_buttonAddFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/orange_button"
+        android:paddingStart="8dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="2dp"
+        android:text="+ Agregar"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_imageFood"
+        app:layout_constraintStart_toStartOf="@+id/imageView_imageFood"
+        app:layout_constraintTop_toBottomOf="@+id/textView_priceFood" />
+</androidx.constraintlayout.widget.ConstraintLayout>

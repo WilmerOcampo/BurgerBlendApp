@@ -5,7 +5,7 @@
     android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/categoria_background">
+    android:background="@drawable/category_background">
 
     <ImageView
         android:id="@+id/imageView_imgCategoria"
