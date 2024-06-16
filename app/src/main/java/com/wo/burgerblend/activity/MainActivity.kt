@@ -8,12 +8,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
+import com.wo.burgerblend.adapter.CategoriaAdapter
 import com.wo.burgerblend.domain.Categoria
 
 class MainActivity : AppCompatActivity() {
 
-    var adapter: RecyclerView.Adapter<*>? = null
-    var recyclerViewCategorias: RecyclerView? = null
+    private var adapter: RecyclerView.Adapter<*>? = null
+    private var recyclerViewCategorias: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         recyclerViewCategoria()
     }
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         categorias.add(Categoria(4, "Bebidas", "cat_4"))
         categorias.add(Categoria(5, "Donas", "cat_5"))
 
-        /*adapter = CategoriaAdapter(this)
-        recyclerViewCategorias!!.adapter = adapter*/
+        adapter = CategoriaAdapter(categorias)
+        recyclerViewCategorias!!.adapter = adapter
     }
 }
