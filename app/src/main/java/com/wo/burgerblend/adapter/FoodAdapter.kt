@@ -1,5 +1,6 @@
 package com.wo.burgerblend.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
+import com.wo.burgerblend.activity.DetailFoodActivity
 import com.wo.burgerblend.domain.Food
 
 class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdapter.PopularFoodViewHolder>() {
@@ -21,6 +23,12 @@ class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdap
             priceFood.text = food.price.toString()
             val drawableResourceId: Int = itemView.context.resources.getIdentifier(food.image, "drawable", itemView.context.packageName)
             imageFood.setImageResource(drawableResourceId)
+
+            btnAddFood.setOnClickListener {
+                val intent = Intent(itemView.context, DetailFoodActivity::class.java)
+                intent.putExtra("food", food)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

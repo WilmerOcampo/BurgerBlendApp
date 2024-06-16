@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView_backgroundIntro"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="650dp"
         android:scaleType="fitXY"
         android:src="@drawable/background_intro"
         app:layout_constraintBottom_toBottomOf="parent"

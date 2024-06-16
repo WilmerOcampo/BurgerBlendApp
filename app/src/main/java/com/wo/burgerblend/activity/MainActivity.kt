@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
         recyclerViewPopularFood!!.layoutManager = linearLayoutManager
 
         val foods: ArrayList<Food> = ArrayList()
-        foods.add(Food(1, "Pizza Pepperoni", "Rebanadas de pepperoni, queso mozzarella, rodajas de tomate, rodajas de albahaca, oregano fresco, pimienta negra molida, salsa.", 19.99, "pizza"))
-        foods.add(Food(2, "Hamburguesa con Queso", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "pop_2"))
-        foods.add(Food(3, "Hot Dog", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "hotdog"))
-        foods.add(Food(4, "Pizza Vegetariana", "Aceite oliva, aceite vegetal, kalamata sin hueso, tomates cherry, oregano freso, albahaca.", 22.90, "pop_3"))
-        foods.add(Food(5, "Donas", "Donas de chocolate", 19.99, "donas"))
+        foods.add(Food(1, "Pizza Pepperoni", "Rebanadas de pepperoni, queso mozzarella, rodajas de tomate, rodajas de albahaca, oregano fresco, pimienta negra molida, salsa.", 19.99, "pizza", 1))
+        foods.add(Food(2, "Hamburguesa con Queso", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "pop_2", 1))
+        foods.add(Food(3, "Hot Dog", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "hotdog", 1))
+        foods.add(Food(4, "Pizza Vegetariana", "Aceite oliva, aceite vegetal, kalamata sin hueso, tomates cherry, oregano freso, albahaca.", 22.90, "pop_3", 1))
+        foods.add(Food(5, "Donas", "Donas de chocolate", 19.99, "donas", 1))
 
         adapter = FoodAdapter(foods)
         recyclerViewPopularFood!!.adapter = adapter
