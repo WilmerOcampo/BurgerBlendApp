@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_intro"
+        android:id="@+id/button_empezar"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
