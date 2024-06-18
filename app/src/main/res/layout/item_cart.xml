@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout_itemCart"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/cart_background"
+    android:elevation="2dp">
+
+    <ImageView
+        android:id="@+id/imageView_imageFoodCart"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pop_1" />
+
+    <TextView
+        android:id="@+id/textView_nameFoodCart"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView_imageFoodCart"
+        app:layout_constraintTop_toTopOf="@+id/imageView_imageFoodCart" />
+
+    <ImageView
+        android:id="@+id/imageView_buttonMinusOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/orange_button"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_imageFoodCart"
+        app:layout_constraintStart_toStartOf="@+id/textView_nameFoodCart"
+        app:srcCompat="@drawable/baseline_arrow_circle_minus_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/textView_quantityOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="1"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_buttonMinusOrderCart"
+        app:layout_constraintStart_toEndOf="@+id/imageView_buttonMinusOrderCart"
+        app:layout_constraintTop_toTopOf="@+id/imageView_buttonMinusOrderCart" />
+
+    <ImageView
+        android:id="@+id/imageView_buttonPlusOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/orange_button"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_buttonMinusOrderCart"
+        app:layout_constraintStart_toEndOf="@+id/textView_quantityOrderCart"
+        app:layout_constraintTop_toTopOf="@+id/imageView_buttonMinusOrderCart"
+        app:srcCompat="@drawable/baseline_arrow_circle_plus_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/textView_priceFoodCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="0.0"
+        android:textSize="16sp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView_nameFoodCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_nameFoodCart" />
+
+    <TextView
+        android:id="@+id/textView_sPriceFoodCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S/. "
+        android:textColor="@color/orange"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_priceFoodCart"
+        app:layout_constraintEnd_toStartOf="@+id/textView_priceFoodCart"
+        app:layout_constraintTop_toTopOf="@+id/textView_priceFoodCart" />
+
+    <TextView
+        android:id="@+id/textView_totalPriceOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_buttonPlusOrderCart"
+        app:layout_constraintEnd_toEndOf="@+id/textView_priceFoodCart"
+        app:layout_constraintTop_toTopOf="@+id/imageView_buttonPlusOrderCart" />
+
+    <TextView
+        android:id="@+id/textView_sTotalOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S/. "
+        android:textColor="@color/orange"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_totalPriceOrderCart"
+        app:layout_constraintEnd_toStartOf="@+id/textView_totalPriceOrderCart"
+        app:layout_constraintTop_toTopOf="@+id/textView_totalPriceOrderCart" />
+</androidx.constraintlayout.widget.ConstraintLayout>

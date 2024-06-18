@@ -1,12 +1,15 @@
 package com.wo.burgerblend.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wo.burgerblend.R
 import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
@@ -30,6 +33,24 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerViewCategory()
         recyclerViewPopularFood()
+        navigate()
+    }
+
+    private fun navigate() {
+        val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
+        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButton)
+
+        btnFloatActionCart.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+        if (this !is MainActivity){
+            btnHome.setOnClickListener {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
     }
 
     private fun recyclerViewCategory() {
@@ -62,7 +83,5 @@ class MainActivity : AppCompatActivity() {
 
         adapter = FoodAdapter(foods)
         recyclerViewPopularFood!!.adapter = adapter
-
-
     }
 }

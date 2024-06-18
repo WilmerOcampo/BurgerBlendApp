@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Food
-import com.wo.burgerblend.hejper.CartHelperJ
+import com.wo.burgerblend.helper.CartHelperJ
 
 class DetailFoodActivity : AppCompatActivity() {
 
@@ -21,6 +21,7 @@ class DetailFoodActivity : AppCompatActivity() {
     private var quantityOrder: TextView? = null
     private var buttonPlusOrder: ImageView? = null
     private var buttonMinusOrder: ImageView? = null
+    private var btnClose: ImageView? = null
     private var food: Food? = null
     private var cartHelper: CartHelperJ? = null
 
@@ -33,13 +34,12 @@ class DetailFoodActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         cartHelper = CartHelperJ(this)
         initView()
-        bindDetilFoodView()
+        bindDetailFoodView()
     }
 
-    private fun bindDetilFoodView() {
+    private fun bindDetailFoodView() {
         food = intent.getSerializableExtra("food") as Food?
 
         nameFood?.text = food?.name
@@ -65,8 +65,10 @@ class DetailFoodActivity : AppCompatActivity() {
             val quantity = quantityOrder?.text.toString().toInt()
             food?.quantity = quantity
             cartHelper?.addToCart(food)
-            //food?.quantity
-            //cartHelper?.addToCart(food, quantity)
+        }
+
+        btnClose?.setOnClickListener {
+            finish()
         }
     }
 
@@ -79,5 +81,6 @@ class DetailFoodActivity : AppCompatActivity() {
         quantityOrder = findViewById(R.id.textView_quantityOrderFoodDetail)
         buttonPlusOrder = findViewById(R.id.imageView_buttonPlusOrderFoodDetail)
         buttonMinusOrder = findViewById(R.id.imageView_buttonMinusOrderFoodDetail)
+        btnClose = findViewById(R.id.imageView_buttonCloseFoodDetail)
     }
 }

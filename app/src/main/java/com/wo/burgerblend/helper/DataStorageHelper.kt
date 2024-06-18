@@ -1,4 +1,4 @@
-package com.wo.burgerblend.hejper
+package com.wo.burgerblend.helper
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -5,31 +5,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CartListActivity">
+    tools:context=".activity.CartActivity">
 
     <ScrollView
+        android:id="@+id/scrollView_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Cart"
+                android:layout_marginTop="30dp"
+                android:text="Mi Carrito"
                 android:textAlignment="center"
-                android:layout_marginTop="32dp"
-                android:textStyle="bold"
+                android:textColor="@color/orange"
                 android:textSize="20sp"
-                android:textColor="#ff3d00"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_cart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -43,52 +49,21 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView_totalOrderCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Items Total:"
-                    android:textColor="#373b54"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/totaFeeTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="$0"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#373b54"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Delivery Services:"
-                    android:textColor="#373b54"
+                    android:text="Total Pedido:"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/taxTxt"
+                    android:id="@+id/textView_totalOrderPriceCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="$0"
-                    android:textColor="#373b54"
+                    android:text="S/. 0"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -103,22 +78,50 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView_deliveryServicesCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tax:"
-                    android:textColor="#373b54"
+                    android:text="Servicio Delivery:"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/totalTxt"
+                    android:id="@+id/textView_deliveryPriceCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="S/. 0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-                    android:text="$0"
-                    android:textColor="#373b54"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView_igvCart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="IGV:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_igvPriceCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S/. 0"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -133,7 +136,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView_totalCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -143,29 +146,42 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/totalTxt"
+                    android:id="@+id/textView_totalPriceCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="$0"
-                    android:textColor="#373b54"
+                    android:text="S/. 0"
+                    android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView_buttonCheckoutCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CheckOut"
+                android:layout_margin="16dp"
                 android:background="@drawable/orange_button"
                 android:gravity="center"
-                android:textColor="#ffffff"
+                android:text="Pagar"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView_emptyCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tu Carrito Está Vacío"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout_appBar"
@@ -190,7 +206,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_homeAppButton"
+                    android:id="@+id/linearLayout_homeAppButtonCart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -309,6 +325,7 @@
             android:layout_gravity="bottom">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton_cartCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
