@@ -16,14 +16,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wo.burgerblend.R
 import com.wo.burgerblend.adapter.CartAdapter
 import com.wo.burgerblend.domain.Food
-import com.wo.burgerblend.helper.CartHelperJ
+import com.wo.burgerblend.helper.CartHelper
 
 class CartActivity : AppCompatActivity() {
 
     private var adapter: RecyclerView.Adapter<*>? = null
     private var recyclerViewCart: RecyclerView? = null
     private var scrollView: ScrollView? = null
-    private var cartHelper: CartHelperJ? = null
+    private var cartHelper: CartHelper? = null
 
     private var totalOrderPrice: TextView? = null
     private var deliveryPrice: TextView? = null
@@ -42,7 +42,7 @@ class CartActivity : AppCompatActivity() {
             insets
         }
 
-        cartHelper = CartHelperJ(this)
+        cartHelper = CartHelper(this)
         initView()
         bindRecyclerViewCart()
         navigate()
@@ -78,8 +78,14 @@ class CartActivity : AppCompatActivity() {
         intent.getSerializableExtra("food") as Food?
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerViewCart?.layoutManager = layoutManager
-        adapter = CartAdapter(cartHelper!!.cart)
-        if (cartHelper!!.cart.isEmpty()) {
+        adapter = CartAdapter(cartHelper!!.getCart()){
+            updateCartData()
+        }
+
+        deliveryPrice?.text = "Gratuito"
+        updateCartData()
+
+        if (cartHelper!!.getCart().isEmpty()) {
             emptyCart?.visibility = View.VISIBLE
             scrollView?.visibility = View.GONE
         } else {
@@ -87,5 +93,16 @@ class CartActivity : AppCompatActivity() {
             scrollView?.visibility = View.VISIBLE
         }
         recyclerViewCart?.adapter = adapter
+    }
+
+    private fun updateCartData() {
+        val totalOrder = cartHelper?.getTotalOrderPrice() ?: 0.0
+        val igv = cartHelper?.getIgv() ?: 0.0
+        val total = cartHelper?.getTotalPrice() ?: 0.0
+
+        totalOrderPrice?.text = "S/. " + String.format("%.2f", totalOrder)
+        igvPrice?.text = "S/. " + String.format("%.2f", igv)
+        totalPrice?.text = "S/. " + String.format("%.2f", total)
+
     }
 }

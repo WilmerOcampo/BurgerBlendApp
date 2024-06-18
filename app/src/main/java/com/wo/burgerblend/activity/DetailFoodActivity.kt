@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Food
-import com.wo.burgerblend.helper.CartHelperJ
+import com.wo.burgerblend.helper.CartHelper
 
 class DetailFoodActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class DetailFoodActivity : AppCompatActivity() {
     private var buttonMinusOrder: ImageView? = null
     private var btnClose: ImageView? = null
     private var food: Food? = null
-    private var cartHelper: CartHelperJ? = null
+    private var cartHelper: CartHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class DetailFoodActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        cartHelper = CartHelperJ(this)
+        cartHelper = CartHelper(this)
         initView()
         bindDetailFoodView()
     }
@@ -64,7 +64,7 @@ class DetailFoodActivity : AppCompatActivity() {
         buttonAddToCart?.setOnClickListener {
             val quantity = quantityOrder?.text.toString().toInt()
             food?.quantity = quantity
-            cartHelper?.addToCart(food)
+            cartHelper?.addToCart(food!!)
         }
 
         btnClose?.setOnClickListener {

@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Food
-import com.wo.burgerblend.helper.CartHelperJ
+import com.wo.burgerblend.helper.CartHelper
 
-class CartAdapter(private val foods: List<Food>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private val foods: List<Food>, private val updateCartData: () -> Unit) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var nameFood: TextView = view.findViewById(R.id.textView_nameFoodCart)
@@ -21,7 +21,7 @@ class CartAdapter(private val foods: List<Food>) : RecyclerView.Adapter<CartAdap
         private var buttonPlus: ImageView = view.findViewById(R.id.imageView_buttonPlusOrderCart)
         private var buttonMinus: ImageView = view.findViewById(R.id.imageView_buttonMinusOrderCart)
 
-        fun bind(food: Food) {
+        fun bind(food: Food, updateCartData: () -> Unit) {
             nameFood.text = food.name
             priceFood.text = food.price.toString()
             totalPrice.text = String.format("%.2f", food.quantity * food.price)
@@ -31,13 +31,15 @@ class CartAdapter(private val foods: List<Food>) : RecyclerView.Adapter<CartAdap
 
             imageFood.setImageResource(drawableResourceId)
 
-            val cartHelper = CartHelperJ(itemView.context)
+            val cartHelper = CartHelper(itemView.context)
 
             buttonPlus.setOnClickListener {
                 if (quantityOrderFood.text.toString().toInt() > 0) {
                     cartHelper.plusQuantity(cartHelper.getCart(), adapterPosition)
                     quantityOrderFood.text = (quantityOrderFood.text.toString().toInt() + 1).toString()
                     totalPrice.text = String.format("%.2f", food.price * quantityOrderFood.text.toString().toDouble())
+
+                    updateCartData()
                 }
             }
 
@@ -46,6 +48,8 @@ class CartAdapter(private val foods: List<Food>) : RecyclerView.Adapter<CartAdap
                     cartHelper.minusQuantity(cartHelper.getCart(), adapterPosition)
                     quantityOrderFood.text = (quantityOrderFood.text.toString().toInt() - 1).toString()
                     totalPrice.text = String.format("%.2f", food.price * quantityOrderFood.text.toString().toDouble())
+
+                    updateCartData()
                 }
             }
         }
@@ -58,7 +62,7 @@ class CartAdapter(private val foods: List<Food>) : RecyclerView.Adapter<CartAdap
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        return holder.bind(foods[position])
+        return holder.bind(foods[position], updateCartData)
     }
 
     override fun getItemCount(): Int {
