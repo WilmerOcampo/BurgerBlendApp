@@ -59,11 +59,11 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCategory!!.layoutManager = linearLayoutManager
 
         val categories: ArrayList<Category> = ArrayList()
-        categories.add(Category(1, "Pizzas", "cat_1"))
-        categories.add(Category(2, "Hamburguesas", "cat_2"))
-        categories.add(Category(3, "Hot Dogs", "cat_3"))
-        categories.add(Category(4, "Bebidas", "cat_4"))
-        categories.add(Category(5, "Donas", "cat_5"))
+        categories.add(Category(1, "Clásicas", "cat_2"))
+        categories.add(Category(2, "Vegetales", "cat_2"))
+        categories.add(Category(3, "De Pollo", "cat_2"))
+        categories.add(Category(4, "Postres", "cat_2"))
+        categories.add(Category(5, "Complementos", "cat_2"))
 
         adapter = CategoryAdapter(categories)
         recyclerViewCategory!!.adapter = adapter
@@ -75,11 +75,12 @@ class MainActivity : AppCompatActivity() {
         recyclerViewPopularFood!!.layoutManager = linearLayoutManager
 
         val foods: ArrayList<Food> = ArrayList()
-        foods.add(Food(1, "Pizza Pepperoni", "Rebanadas de pepperoni, queso mozzarella, rodajas de tomate, rodajas de albahaca, oregano fresco, pimienta negra molida, salsa.", 19.99, "pizza", 1))
-        foods.add(Food(2, "Hamburguesa con Queso", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "pop_2", 1))
-        foods.add(Food(3, "Hot Dog", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "hotdog", 1))
-        foods.add(Food(4, "Pizza Vegetariana", "Aceite oliva, aceite vegetal, kalamata sin hueso, tomates cherry, oregano freso, albahaca.", 22.90, "pop_3", 1))
-        foods.add(Food(5, "Donas", "Donas de chocolate", 19.99, "donas", 1))
+        foods.add(Food(1, "Hamburguesa1", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "pop_2", 1))
+        foods.add(Food(2, "Hamburguesa2", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 22.99, "pop_2", 1))
+        foods.add(Food(4, "Hamburguesa4", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 25.99, "pop_2", 1))
+        foods.add(Food(3, "Hamburguesa3", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 16.99, "pop_2", 1))
+        foods.add(Food(5, "Hamburguesa5", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 29.99, "pop_2", 1))
+        foods.add(Food(6, "Hamburguesa6", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 32.99, "pop_2", 1))
 
         adapter = FoodAdapter(foods)
         recyclerViewPopularFood!!.adapter = adapter
