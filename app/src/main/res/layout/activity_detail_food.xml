@@ -38,9 +38,12 @@
 
             <ImageView
                 android:id="@+id/imageView_imageFoodDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/pizza" />
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/pop_2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,10 +83,12 @@
                 android:id="@+id/textView_descriptionFoodDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_margin="16dp"
                 android:text="Descripción"
+                android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:background="@drawable/text_background"/>
         </LinearLayout>
     </ScrollView>
 
