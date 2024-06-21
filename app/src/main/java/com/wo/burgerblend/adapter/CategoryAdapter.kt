@@ -16,12 +16,13 @@ class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Ada
 
         fun bind(category: Category) {
             nameCategory.text = category.name
-            var imgUrl = ""
-            if(category.image.contains("cat_")) {
-                imgUrl = category.image
+
+            val resId = if (category.image.isNotEmpty()) { // Verificar si "image" de "Category" está vacía
+                R.drawable.cat_4 // Cargar la imagen "cat_1" desde drawable
+            } else {
+                R.drawable.cat_2 // Cargar la imagen por defecto desde drawable
             }
-            val drawableResourceId: Int = itemView.context.resources.getIdentifier(imgUrl, "drawable", itemView.context.packageName)
-            imageCategory.setImageResource(drawableResourceId)
+            imageCategory.setImageResource(resId)
         }
     }
 

@@ -25,8 +25,13 @@ class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdap
             var cartHelper = CartHelper(itemView.context)
             nameFood.text = food.name
             priceFood.text = food.price.toString()
-            val drawableResourceId: Int = itemView.context.resources.getIdentifier(food.image, "drawable", itemView.context.packageName)
-            imageFood.setImageResource(drawableResourceId)
+
+            val resId = if (food.image.isNotEmpty()) { // Verificar si "image" está vacía
+                R.drawable.pop_2 // Cargar la imagen desde drawable
+            } else {
+                R.drawable.pop_2 // Cargar la imagen por defecto desde drawable
+            }
+            imageFood.setImageResource(resId)
 
             btnAddFood.setOnClickListener {
                 val quantity = 1

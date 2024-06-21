@@ -2,6 +2,8 @@ package com.wo.burgerblend.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.wo.burgerblend.R
 import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
@@ -73,23 +79,60 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCategories(): List<Category> {
-        return listOf(
-            Category(1, "Clásicas", "cat_2"),
-            Category(2, "Vegetales", "cat_2"),
-            Category(3, "De Pollo", "cat_2"),
-            Category(4, "Postres", "cat_2"),
-            Category(5, "Complementos", "cat_2")
-        )
+        val categories: MutableList<Category> = mutableListOf()
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference("categories")
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                categories.clear()
+                if (snapshot.exists()) {
+                    for (categorySnapshot in snapshot.children) {
+                        val category = categorySnapshot.getValue(Category::class.java)
+                        if (category != null) {
+                            categories.add(category)
+                        }
+                    }
+                    Log.d("Categories", categories.toString())
+                    recyclerViewCategory.adapter = CategoryAdapter(categories)
+                } else {
+                    Toast.makeText(this@MainActivity, "No hay datos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar errores
+            }
+        })
+        return categories
     }
 
     private fun getPopularFoods(): List<Food> {
-        return listOf(
-            Food(1, "Hamburguesa1", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 19.99, "pop_2", 1),
-            Food(2, "Hamburguesa2", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 22.99, "pop_2", 1),
-            Food(3, "Hamburguesa3", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 16.99, "pop_2", 1),
-            Food(4, "Hamburguesa4", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 25.99, "pop_2", 1),
-            Food(5, "Hamburguesa5", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 29.99, "pop_2", 1),
-            Food(6, "Hamburguesa6", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 32.99, "pop_2", 1)
-        )
+        val foods: MutableList<Food> = mutableListOf()
+
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference("foods")
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                foods.clear()
+                if (snapshot.exists()) {
+                    for (foodSnapshot in snapshot.children) {
+                        val food = foodSnapshot.getValue(Food::class.java)
+                        if (food != null) {
+                            foods.add(food)
+                        }
+                    }
+                    recyclerViewPopularFood.adapter = FoodAdapter(foods)
+                } else {
+                    Toast.makeText(this@MainActivity, "No hay datos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar errores
+            }
+        })
+        return foods
     }
 }

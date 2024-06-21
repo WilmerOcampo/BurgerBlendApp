@@ -1,4 +1,5 @@
 package com.wo.burgerblend.domain
 
-class Category(var id:Long, var name:String, var image:String) {
+class Category(var key:String, var id:Long, var name:String, var description:String, var image:String) {
+    constructor() : this("", 0, "", "", "")
 }
