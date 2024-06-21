@@ -1,6 +1,5 @@
 package com.wo.burgerblend.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -12,15 +11,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wo.burgerblend.R
 import com.wo.burgerblend.adapter.CartAdapter
-import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
 
 class CartActivity : AppCompatActivity() {
 
-    private lateinit var adapter: RecyclerView.Adapter<*>
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var scrollView: ScrollView
     private lateinit var cartHelper: CartHelper
@@ -60,31 +56,33 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_cartCart)
+        /*val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_cartCart)*/
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
 
-        btnFloatActionCart.setOnClickListener {
-            val intent = Intent(this, CartActivity::class.java)
-            startActivity(intent)
-        }
+        /*if (this !is CartActivity) {
+            btnFloatActionCart.setOnClickListener {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
+        }*/
+
         btnHome.setOnClickListener {
             finish()
         }
     }
 
     private fun bindRecyclerViewCart() {
-        intent.getSerializableExtra("food") as Food?
-        recyclerViewCart.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = CartAdapter(cartHelper.getCart()) {
-            updateCartData()
-            updateEmptyCartView()
+        recyclerViewCart.apply {
+            layoutManager = LinearLayoutManager(this@CartActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = CartAdapter(cartHelper.getCart()) {
+                updateCartData()
+                updateEmptyCartView()
+            }
         }
 
         deliveryPrice.text = "Gratuito"
         updateCartData()
         updateEmptyCartView()
-
-        recyclerViewCart.adapter = adapter
     }
 
     private fun updateCartData() {

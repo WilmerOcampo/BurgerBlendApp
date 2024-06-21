@@ -2,7 +2,6 @@ package com.wo.burgerblend.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,9 +17,8 @@ import com.wo.burgerblend.domain.Food
 
 class MainActivity : AppCompatActivity() {
 
-    private var adapter: RecyclerView.Adapter<*>? = null
-    private var recyclerViewCategory: RecyclerView? = null
-    private var recyclerViewPopularFood: RecyclerView? = null
+    private lateinit var recyclerViewCategory: RecyclerView
+    private lateinit var recyclerViewPopularFood: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,58 +29,67 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        recyclerViewCategory()
-        recyclerViewPopularFood()
+        setupRecyclerViews()
         navigate()
     }
 
     private fun navigate() {
         val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
-        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButton)
+        /*val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButton)*/
 
         btnFloatActionCart.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
-        if (this !is MainActivity){
+
+        /*if (this !is MainActivity) {
             btnHome.setOnClickListener {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
-        }
-
+        }*/
     }
 
-    private fun recyclerViewCategory() {
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private fun setupRecyclerViews() {
         recyclerViewCategory = findViewById(R.id.recyclerView_category)
-        recyclerViewCategory!!.layoutManager = linearLayoutManager
+        recyclerViewPopularFood = findViewById(R.id.recyclerView_popularFood)
 
-        val categories: ArrayList<Category> = ArrayList()
-        categories.add(Category(1, "Clásicas", "cat_2"))
-        categories.add(Category(2, "Vegetales", "cat_2"))
-        categories.add(Category(3, "De Pollo", "cat_2"))
-        categories.add(Category(4, "Postres", "cat_2"))
-        categories.add(Category(5, "Complementos", "cat_2"))
+        setupRecyclerView(
+            recyclerViewCategory,
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
+            CategoryAdapter(getCategories())
+        )
 
-        adapter = CategoryAdapter(categories)
-        recyclerViewCategory!!.adapter = adapter
+        setupRecyclerView(
+            recyclerViewPopularFood,
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
+            FoodAdapter(getPopularFoods())
+        )
     }
 
-    private fun recyclerViewPopularFood(){
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewPopularFood = findViewById(R.id.recyclerView_popularFood)
-        recyclerViewPopularFood!!.layoutManager = linearLayoutManager
+    private fun setupRecyclerView(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, adapter: RecyclerView.Adapter<*>) {
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
 
-        val foods: ArrayList<Food> = ArrayList()
-        foods.add(Food(1, "Hamburguesa1", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 19.99, "pop_2", 1))
-        foods.add(Food(2, "Hamburguesa2", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 22.99, "pop_2", 1))
-        foods.add(Food(4, "Hamburguesa4", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 25.99, "pop_2", 1))
-        foods.add(Food(3, "Hamburguesa3", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 16.99, "pop_2", 1))
-        foods.add(Food(5, "Hamburguesa5", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 29.99, "pop_2", 1))
-        foods.add(Food(6, "Hamburguesa6", "Carne de res, queso gouda, salsa especil, lechuga, tomate", 32.99, "pop_2", 1))
+    private fun getCategories(): List<Category> {
+        return listOf(
+            Category(1, "Clásicas", "cat_2"),
+            Category(2, "Vegetales", "cat_2"),
+            Category(3, "De Pollo", "cat_2"),
+            Category(4, "Postres", "cat_2"),
+            Category(5, "Complementos", "cat_2")
+        )
+    }
 
-        adapter = FoodAdapter(foods)
-        recyclerViewPopularFood!!.adapter = adapter
+    private fun getPopularFoods(): List<Food> {
+        return listOf(
+            Food(1, "Hamburguesa1", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 19.99, "pop_2", 1),
+            Food(2, "Hamburguesa2", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 22.99, "pop_2", 1),
+            Food(3, "Hamburguesa3", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 16.99, "pop_2", 1),
+            Food(4, "Hamburguesa4", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 25.99, "pop_2", 1),
+            Food(5, "Hamburguesa5", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 29.99, "pop_2", 1),
+            Food(6, "Hamburguesa6", "Carne de res, queso gouda, salsa especial, lechuga, tomate", 32.99, "pop_2", 1)
+        )
     }
 }
