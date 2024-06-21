@@ -24,7 +24,7 @@ class CartHelper(private val context: Context) {
             cart.add(food)
         }
         tinyDB.putListObject("cart", cart)
-        Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Agregado al carrito", Toast.LENGTH_SHORT).show()
     }
 
     fun plusQuantity(foods: ArrayList<Food>, position: Int) {

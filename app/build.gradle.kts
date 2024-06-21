@@ -51,4 +51,5 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
     implementation(libs.glide)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database.ktx)
 }

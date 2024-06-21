@@ -20,17 +20,17 @@ import com.wo.burgerblend.helper.CartHelper
 
 class CartActivity : AppCompatActivity() {
 
-    private var adapter: RecyclerView.Adapter<*>? = null
-    private var recyclerViewCart: RecyclerView? = null
-    private var scrollView: ScrollView? = null
-    private var cartHelper: CartHelper? = null
+    private lateinit var adapter: RecyclerView.Adapter<*>
+    private lateinit var recyclerViewCart: RecyclerView
+    private lateinit var scrollView: ScrollView
+    private lateinit var cartHelper: CartHelper
 
-    private var totalOrderPrice: TextView? = null
-    private var deliveryPrice: TextView? = null
-    private var igvPrice: TextView? = null
-    private var totalPrice: TextView? = null
-    private var emptyCart: TextView? = null
-    private var buttonCheckout: TextView? = null
+    private lateinit var totalOrderPrice: TextView
+    private lateinit var deliveryPrice: TextView
+    private lateinit var igvPrice: TextView
+    private lateinit var totalPrice: TextView
+    private lateinit var emptyCart: TextView
+    private lateinit var buttonCheckout: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,46 +63,47 @@ class CartActivity : AppCompatActivity() {
         val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_cartCart)
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
 
-        if(this !is CartActivity){
-            btnFloatActionCart.setOnClickListener {
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
-            }
+        btnFloatActionCart.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
         }
         btnHome.setOnClickListener {
             finish()
         }
     }
 
-    private fun bindRecyclerViewCart(){
+    private fun bindRecyclerViewCart() {
         intent.getSerializableExtra("food") as Food?
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerViewCart?.layoutManager = layoutManager
-        adapter = CartAdapter(cartHelper!!.getCart()){
+        recyclerViewCart.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        adapter = CartAdapter(cartHelper.getCart()) {
             updateCartData()
+            updateEmptyCartView()
         }
 
-        deliveryPrice?.text = "Gratuito"
+        deliveryPrice.text = "Gratuito"
         updateCartData()
+        updateEmptyCartView()
 
-        if (cartHelper!!.getCart().isEmpty()) {
-            emptyCart?.visibility = View.VISIBLE
-            scrollView?.visibility = View.GONE
-        } else {
-            emptyCart?.visibility = View.GONE
-            scrollView?.visibility = View.VISIBLE
-        }
-        recyclerViewCart?.adapter = adapter
+        recyclerViewCart.adapter = adapter
     }
 
     private fun updateCartData() {
-        val totalOrder = cartHelper?.getTotalOrderPrice() ?: 0.0
-        val igv = cartHelper?.getIgv() ?: 0.0
-        val total = cartHelper?.getTotalPrice() ?: 0.0
+        val totalOrder = cartHelper.getTotalOrderPrice()
+        val igv = cartHelper.getIgv()
+        val total = cartHelper.getTotalPrice()
 
-        totalOrderPrice?.text = "S/. " + String.format("%.2f", totalOrder)
-        igvPrice?.text = "S/. " + String.format("%.2f", igv)
-        totalPrice?.text = "S/. " + String.format("%.2f", total)
+        totalOrderPrice.text = "S/. %.2f".format(totalOrder)
+        igvPrice.text = "S/. %.2f".format(igv)
+        totalPrice.text = "S/. %.2f".format(total)
+    }
 
+    private fun updateEmptyCartView() {
+        if (cartHelper.getCart().isEmpty()) {
+            emptyCart.visibility = View.VISIBLE
+            scrollView.visibility = View.GONE
+        } else {
+            emptyCart.visibility = View.GONE
+            scrollView.visibility = View.VISIBLE
+        }
     }
 }
