@@ -174,7 +174,7 @@
                         android:id="@+id/button_nuevaOrden"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/orange_button"
+                        android:background="@drawable/orange_s_button"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView_fechaDeliveryGratis"
                         app:layout_constraintStart_toStartOf="@+id/textView_fechaDeliveryGratis"

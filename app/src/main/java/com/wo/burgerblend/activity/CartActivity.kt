@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -85,6 +86,10 @@ class CartActivity : AppCompatActivity() {
         totalOrderPrice.text = "S/. %.2f".format(totalOrder)
         igvPrice.text = "S/. %.2f".format(igv)
         totalPrice.text = "S/. %.2f".format(total)
+
+        buttonCheckout.setOnClickListener{
+            Toast.makeText(this, "Botón de pago", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateEmptyCartView() {
@@ -96,4 +101,6 @@ class CartActivity : AppCompatActivity() {
             scrollView.visibility = View.VISIBLE
         }
     }
+
+
 }
