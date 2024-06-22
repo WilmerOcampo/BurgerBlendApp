@@ -22,8 +22,8 @@ class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Ada
 
             Glide.with(itemView)
                 .load(category.image) // Carga imagen desde la URL
-                .placeholder(R.drawable.pop_2) // La imagen tarde en cargar
-                .error(R.drawable.pop_2) // No se pueda cargar la imagen
+                .placeholder(R.drawable.veggie_burger) // La imagen tarde en cargar
+                .error(R.drawable.veggie_burger) // No se pueda cargar la imagen
                 .into(imageCategory)
 
             itemView.setOnClickListener {

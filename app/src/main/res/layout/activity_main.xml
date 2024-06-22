@@ -57,7 +57,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView_ordenarDisfrutar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView_holaUsuario"
-                    app:srcCompat="@drawable/profile" />
+                    app:srcCompat="@drawable/default_profile" />
 
                 <EditText
                     android:id="@+id/editText_buscarComida"

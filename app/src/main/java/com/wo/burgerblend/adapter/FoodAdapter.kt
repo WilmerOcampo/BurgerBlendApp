@@ -28,8 +28,8 @@ class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdap
 
             Glide.with(itemView)
                 .load(food.image) // Carga imagen desde la URL
-                .placeholder(R.drawable.pop_2) // La imagen tarde en cargar
-                .error(R.drawable.pop_2) // No se pueda cargar la imagen
+                .placeholder(R.drawable.veggie_burger) // La imagen tarde en cargar
+                .error(R.drawable.veggie_burger) // No se pueda cargar la imagen
                 .into(imageFood)
 
             btnAddFood.setOnClickListener {

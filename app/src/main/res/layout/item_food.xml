@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_nameFood"
-        app:srcCompat="@drawable/pop_2" />
+        app:srcCompat="@drawable/veggie_burger" />
 
     <TextView
         android:id="@+id/textView_priceFood"
