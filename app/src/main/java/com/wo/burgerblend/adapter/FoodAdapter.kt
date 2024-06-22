@@ -6,39 +6,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
 import com.wo.burgerblend.activity.DetailFoodActivity
 import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
 
 class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdapter.PopularFoodViewHolder>() {
+
     class PopularFoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var nameFood: TextView = view.findViewById(R.id.textView_nameFood)
         private var imageFood: ImageView = view.findViewById(R.id.imageView_imageFood)
         private var priceFood: TextView = view.findViewById(R.id.textView_priceFood)
         private var btnAddFood: TextView = view.findViewById(R.id.textView_buttonAddFood)
-        private var itemFood: ConstraintLayout = view.findViewById(R.id.constraintLayout_itemFood)
 
         fun bind(food: Food) {
-            var cartHelper = CartHelper(itemView.context)
+            val cartHelper = CartHelper(itemView.context)
             nameFood.text = food.name
             priceFood.text = food.price.toString()
 
-            val resId = if (food.image.isNotEmpty()) { // Verificar si "image" está vacía
-                R.drawable.pop_2 // Cargar la imagen desde drawable
-            } else {
-                R.drawable.pop_2 // Cargar la imagen por defecto desde drawable
-            }
-            imageFood.setImageResource(resId)
+            Glide.with(itemView)
+                .load(food.image) // Carga imagen desde la URL
+                .placeholder(R.drawable.pop_2) // La imagen tarde en cargar
+                .error(R.drawable.pop_2) // No se pueda cargar la imagen
+                .into(imageFood)
 
             btnAddFood.setOnClickListener {
                 val quantity = 1
                 food.quantity = quantity
                 cartHelper.addToCart(food)
             }
-            itemFood.setOnClickListener {
+
+            itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailFoodActivity::class.java)
                 intent.putExtra("food", food)
                 itemView.context.startActivity(intent)

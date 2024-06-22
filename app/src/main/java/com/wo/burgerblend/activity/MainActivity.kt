@@ -2,7 +2,6 @@ package com.wo.burgerblend.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -41,19 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigate() {
         val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
-        /*val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButton)*/
 
         btnFloatActionCart.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
-
-        /*if (this !is MainActivity) {
-            btnHome.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
     }
 
     private fun setupRecyclerViews() {
@@ -63,13 +54,13 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView(
             recyclerViewCategory,
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
-            CategoryAdapter(getCategories())
+            CategoryAdapter(categories())
         )
 
         setupRecyclerView(
             recyclerViewPopularFood,
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
-            FoodAdapter(getPopularFoods())
+            FoodAdapter(foods())
         )
     }
 
@@ -78,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun getCategories(): List<Category> {
+    private fun categories(): List<Category> {
         val categories: MutableList<Category> = mutableListOf()
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("categories")
@@ -93,7 +84,6 @@ class MainActivity : AppCompatActivity() {
                             categories.add(category)
                         }
                     }
-                    Log.d("Categories", categories.toString())
                     recyclerViewCategory.adapter = CategoryAdapter(categories)
                 } else {
                     Toast.makeText(this@MainActivity, "No hay datos", Toast.LENGTH_SHORT).show()
@@ -107,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         return categories
     }
 
-    private fun getPopularFoods(): List<Food> {
+    private fun foods(): List<Food> {
         val foods: MutableList<Food> = mutableListOf()
 
         val database = FirebaseDatabase.getInstance()
@@ -123,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                             foods.add(food)
                         }
                     }
-                    recyclerViewPopularFood.adapter = FoodAdapter(foods)
+                    recyclerViewPopularFood.adapter = FoodAdapter(foods/*, getCategories()*/)
                 } else {
                     Toast.makeText(this@MainActivity, "No hay datos", Toast.LENGTH_SHORT).show()
                 }

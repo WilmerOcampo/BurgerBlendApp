@@ -56,15 +56,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        /*val btnFloatActionCart: FloatingActionButton = findViewById(R.id.floatingActionButton_cartCart)*/
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
-
-        /*if (this !is CartActivity) {
-            btnFloatActionCart.setOnClickListener {
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
 
         btnHome.setOnClickListener {
             finish()

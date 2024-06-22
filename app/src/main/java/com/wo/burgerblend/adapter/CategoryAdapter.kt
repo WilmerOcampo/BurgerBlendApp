@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Category
 
@@ -17,12 +18,11 @@ class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Ada
         fun bind(category: Category) {
             nameCategory.text = category.name
 
-            val resId = if (category.image.isNotEmpty()) { // Verificar si "image" de "Category" está vacía
-                R.drawable.cat_4 // Cargar la imagen "cat_1" desde drawable
-            } else {
-                R.drawable.cat_2 // Cargar la imagen por defecto desde drawable
-            }
-            imageCategory.setImageResource(resId)
+            Glide.with(itemView)
+                .load(category.image) // Carga imagen desde la URL
+                .placeholder(R.drawable.pop_2) // La imagen tarde en cargar
+                .error(R.drawable.pop_2) // No se pueda cargar la imagen
+                .into(imageCategory)
         }
     }
 

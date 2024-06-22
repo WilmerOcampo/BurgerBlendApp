@@ -28,9 +28,20 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textView_categoryFoodDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Category"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/textView_sPriceFoodDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="S/. "
                 android:textAlignment="center"
                 android:textColor="@color/orange"
@@ -43,13 +54,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
+                android:background="@drawable/cart_background"
+                android:clipToOutline="true"
                 app:srcCompat="@drawable/pop_2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:id="@+id/imageView_buttonMinusOrderFoodDetail"
@@ -87,6 +102,7 @@
                 android:layout_margin="16dp"
                 android:text="Descripción"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:background="@drawable/text_background"/>
         </LinearLayout>

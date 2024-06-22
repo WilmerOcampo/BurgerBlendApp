@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
@@ -27,9 +28,11 @@ class CartAdapter(private val foods: List<Food>, private val updateCartData: () 
             totalPrice.text = String.format("%.2f", food.quantity * food.price)
             quantityOrderFood.text = food.quantity.toString()
 
-            val drawableResourceId: Int = itemView.context.resources.getIdentifier(food.image, "drawable", itemView.context.packageName)
-
-            imageFood.setImageResource(drawableResourceId)
+            Glide.with(itemView)
+                .load(food.image) // Carga imagen desde la URL
+                .placeholder(R.drawable.pop_2) // La imagen tarde en cargar
+                .error(R.drawable.pop_2) // No se pueda cargar la imagen
+                .into(imageFood)
 
             val cartHelper = CartHelper(itemView.context)
 
