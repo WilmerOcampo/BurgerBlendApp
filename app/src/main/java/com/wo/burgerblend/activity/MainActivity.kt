@@ -19,11 +19,18 @@ import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
 import com.wo.burgerblend.domain.Category
 import com.wo.burgerblend.domain.Food
+import com.wo.burgerblend.service.CategoryServiceImpl
+import com.wo.burgerblend.service.FoodServiceImpl
+import com.wo.burgerblend.service.ICategoryService
+import com.wo.burgerblend.service.IFoodService
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewCategory: RecyclerView
     private lateinit var recyclerViewPopularFood: RecyclerView
+
+    private var foodService = FoodServiceImpl() as IFoodService
+    private var categoryService = CategoryServiceImpl(this) as ICategoryService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         setupRecyclerViews()
         navigate()
     }
@@ -47,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerViews() {
+    /*private fun setupRecyclerViews() {
         recyclerViewCategory = findViewById(R.id.recyclerView_category)
         recyclerViewPopularFood = findViewById(R.id.recyclerView_popularFood)
 
@@ -67,9 +75,35 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, adapter: RecyclerView.Adapter<*>) {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+    }*/
+    private fun setupRecyclerViews() {
+        val recyclerViewCategory: RecyclerView = findViewById(R.id.recyclerView_category)
+        val recyclerViewPopularFood: RecyclerView = findViewById(R.id.recyclerView_popularFood)
+
+        categoryService.categories { categories ->
+            setupRecyclerView(
+                recyclerViewCategory,
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
+                CategoryAdapter(categories)
+            )
+        }
+
+
+        foodService.foods { foods ->
+            setupRecyclerView(
+                recyclerViewPopularFood,
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false),
+                FoodAdapter(foods)
+            )
+        }
     }
 
-    private fun categories(): List<Category> {
+    private fun setupRecyclerView(recyclerView: RecyclerView, layoutManager: LinearLayoutManager, adapter: RecyclerView.Adapter<*>) {
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    /*private fun categories(): List<Category> {
         val categories: MutableList<Category> = mutableListOf()
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("categories")
@@ -95,9 +129,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return categories
-    }
+    }*/
 
-    private fun foods(): List<Food> {
+    /*private fun foods(): List<Food> {
         val foods: MutableList<Food> = mutableListOf()
 
         val database = FirebaseDatabase.getInstance()
@@ -113,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                             foods.add(food)
                         }
                     }
-                    recyclerViewPopularFood.adapter = FoodAdapter(foods/*, getCategories()*/)
+                    recyclerViewPopularFood.adapter = FoodAdapter(foods*//*, getCategories()*//*)
                 } else {
                     Toast.makeText(this@MainActivity, "No hay datos", Toast.LENGTH_SHORT).show()
                 }
@@ -124,5 +158,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return foods
-    }
+    }*/
 }
