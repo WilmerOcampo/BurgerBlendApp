@@ -1,11 +1,7 @@
 plugins {
-    //alias(libs.plugins.android.application)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    //alias(libs.plugins.google.services)
-    //Firebase
-    id("com.android.application")
-    id("com.google.gms.google-services")
-
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -47,9 +43,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.google.firebase.database.ktx)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -57,11 +50,11 @@ dependencies {
     implementation(libs.gson)
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
     implementation(libs.glide)
+
+    //Firebase
     implementation(platform(libs.firebase.bom))
-    //implementation(libs.firebase.database.ktx)
-    //Firebase
-    //implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
-    //Firebase
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
 
     // https://mvnrepository.com/artifact/jp.wasabeef/glide-transformations
     implementation(libs.glide.transformations)

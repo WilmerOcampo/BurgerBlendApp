@@ -9,6 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.wo.burgerblend.R
+import com.wo.burgerblend.domain.User
+import com.wo.burgerblend.service.UserService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -22,6 +27,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signupConfirmPassword: EditText
     private lateinit var signupButton: Button
     private lateinit var loginRedirectText: TextView
+    private var userService = UserService(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,67 +45,111 @@ class SignUpActivity : AppCompatActivity() {
         loginRedirectText = findViewById(R.id.loginRedirectText)
 
         signupButton.setOnClickListener {
-            val firstName = signupFirstName.text.toString().trim()
-            val lastName = signupLastName.text.toString().trim()
-            val email = signupEmail.text.toString().trim()
-            val address = signupAddress.text.toString().trim()
-            val phone = signupPhone.text.toString().trim()
-            val password = signupPassword.text.toString().trim()
-            val confirmPassword = signupConfirmPassword.text.toString().trim()
+            registerUser()
+        }
 
-            if (firstName.isEmpty()) {
-                signupFirstName.error = "El nombre no puede estar vacío"
-                return@setOnClickListener
-            }
-            if (lastName.isEmpty()) {
-                signupLastName.error = "El apellido no puede estar vacío"
-                return@setOnClickListener
-            }
-            if (email.isEmpty()) {
-                signupEmail.error = "El correo no puede estar vacío"
-                return@setOnClickListener
-            }
-            if (address.isEmpty()) {
-                signupAddress.error = "La dirección no puede estar vacía"
-                return@setOnClickListener
-            }
-            if (phone.isEmpty()) {
-                signupPhone.error = "El celular no puede estar vacío"
-                return@setOnClickListener
-            }
-            if (password.isEmpty()) {
-                signupPassword.error = "La contraseña no puede estar vacía"
-                return@setOnClickListener
-            }
-            if (confirmPassword.isEmpty()) {
-                signupConfirmPassword.error = "Confirmar contraseña no puede estar vacío"
-                return@setOnClickListener
-            }
-            if (password != confirmPassword) {
-                signupConfirmPassword.error = "Las contraseñas no coinciden"
-                return@setOnClickListener
-            }
+        loginRedirectText.setOnClickListener {
+            finish()
+        }
+    }
 
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+    private fun registerUser() {
+        val firstName = signupFirstName.text.toString().trim()
+        val lastName = signupLastName.text.toString().trim()
+        val email = signupEmail.text.toString().trim()
+        val address = signupAddress.text.toString().trim()
+        val phone = signupPhone.text.toString().trim()
+        val password = signupPassword.text.toString().trim()
+        val confirmPassword = signupConfirmPassword.text.toString().trim()
+
+        validateInputs(firstName, lastName, email, address, phone, password, confirmPassword)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val user = User(
+                    key = "",
+                    uid = "",
+                    id = 0L,
+                    name = firstName,
+                    lastname = lastName,
+                    image = "",
+                    email = email,
+                    address = address,
+                    phone = phone,
+                    role = "",
+                    password = password,
+                    active = true
+                )
+                userService.createUser(user)
+                runOnUiThread {
                     Toast.makeText(
                         this@SignUpActivity,
                         "Registro exitoso",
                         Toast.LENGTH_SHORT
                     ).show()
                     startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
-                } else {
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
                     Toast.makeText(
                         this@SignUpActivity,
-                        "Registro fallido: " + (task.exception?.message ?: "Error desconocido"),
+                        "Registro fallido: ${e.message}",
+
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
         }
+    }
 
-        loginRedirectText.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+    private fun validateInputs(
+        firstName: String,
+        lastName: String,
+        email: String,
+        address: String,
+        phone: String,
+        password: String,
+        confirmPassword: String
+    ) {
+        if (firstName.isEmpty()) {
+            signupFirstName.error = "El nombre no puede estar vacío"
+            return
+        }
+        if (lastName.isEmpty()) {
+            signupLastName.error = "El apellido no puede estar vacío"
+            return
+        }
+        if (email.isEmpty()) {
+            signupEmail.error = "El correo no puede estar vacío"
+            return
+        }
+        if (address.isEmpty()) {
+            signupAddress.error = "La dirección no puede estar vacía"
+            return
+        }
+        if (phone.isEmpty()) {
+            signupPhone.error = "El celular no puede estar vacío"
+            return
+        }
+        if (password.isEmpty()) {
+            signupPassword.error = "La contraseña no puede estar vacía"
+            return
+        }
+        if (password.length < 6) {
+            signupPassword.error = "La contraseña debe tener al menos 6 caracteres"
+            return
+        }
+        if (confirmPassword.length < 6) {
+            signupConfirmPassword.error = "La contraseña debe tener al menos 6 caracteres"
+            return
+        }
+        if (confirmPassword.isEmpty()) {
+            signupConfirmPassword.error = "Confirmar contraseña no puede estar vacío"
+            return
+        }
+        if (password != confirmPassword) {
+            signupConfirmPassword.error = "Las contraseñas no coinciden"
+            return
         }
     }
 }

@@ -11,19 +11,21 @@ import com.google.firebase.database.ValueEventListener
 import com.wo.burgerblend.database.DatabaseHelper
 import com.wo.burgerblend.domain.User
 import kotlinx.coroutines.tasks.await
-import java.io.File
+
 
 class UserService(private val context: Context) {
-    private val database = FirebaseDatabase.getInstance()
-    private val reference = database.getReference("users")
+    private val reference = FirebaseDatabase.getInstance().getReference("users")
     private val auth = FirebaseAuth.getInstance()
     private val sqlLite = DatabaseHelper(context)
+
+    private val defImg =
+        "https://firebasestorage.googleapis.com/v0/b/burger-blend.appspot.com/o/users%2FUser%20Image%20Defaut.jpg?alt=media&token=79f019bd-6a1e-427a-8ed9-8f0766580b9c"
 
     fun users(callback: (List<User>) -> Unit) {
         if (isNetworkAvailable()) {
             usersFirebase(callback)
         } else {
-            usersSQLite(callback)
+            //usersSQLite(callback)
         }
     }
 
@@ -63,56 +65,50 @@ class UserService(private val context: Context) {
             })
     }
 
-    suspend fun createUser(user: User) {
-        val credential = auth.createUserWithEmailAndPassword(user.email, user.password).await()
-        user.uid = credential.user?.uid.toString()
-        reference.push().setValue(user)
-
+    private fun defaultUserData(user: User){
+        user.image = defImg
+        user.role = "USER"
+        user.id = maxId() + 1
     }
 
-    suspend fun updateUser(user: User) {
+     fun createUser(user: User) {
+        auth.createUserWithEmailAndPassword(user.email, user.password)
+            .addOnSuccessListener { authResult ->
+                val firebaseUser = authResult.user
+                firebaseUser?.let { u ->
+                    user.uid = u.uid
+                    defaultUserData(user)
+                    val id = reference.push().key.toString()
+                    reference.child(id).setValue(user)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Manejar fallos en la creación del usuario
+            }
+    }
+
+
+    private fun updateUser(user: User) {
         reference.child(user.key).setValue(user)
     }
 
-    suspend fun save(user: User, file: File) {
-        if (user.key != null) {
-            updateUser(user)
-        } else {
-            createUser(user)
-        }
-    }
-
-    suspend fun deleteUser(user: User) {
+    fun deleteUser(user: User) {
         reference.child(user.key).removeValue()
     }
 
-    suspend fun updateActiveState(key: String, active: Boolean) {
+    fun updateActiveState(key: String, active: Boolean) {
         reference.child(key).child("active").setValue(active)
     }
 
-    suspend fun maxId(callback: (Int) -> Unit) {
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val users = snapshot.children.mapNotNull { it.getValue(User::class.java) }
-                val maxId = users.maxByOrNull { it.id }?.id ?: 1000
-                callback(maxId.toInt())
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                callback(1000)
-            }
-        })
+    private fun maxId(): Long {
+        var maxId = 1000L
+        usersFirebase { users ->
+            if (users.isNotEmpty())
+                maxId = users.maxOfOrNull { it.id } ?: 1000L
+        }
+        return maxId
     }
 
-    private fun usersSQLite(callback: (List<User>) -> Unit) {
-        //val users = sqlLite.users()
-        //callback(users)
-    }
-
-    private fun saveUsersToSQLite(users: List<User>) {
-        //sqlLite.deleteUsers()
-        //sqlLite.saveUsers(users)
-    }
 
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =

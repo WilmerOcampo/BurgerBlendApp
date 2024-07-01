@@ -62,18 +62,22 @@ class LoginActivity : AppCompatActivity() {
                 loginEmail.error = "Requiere email"
                 false
             }
+
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 loginEmail.error = "Por favor introduzca una dirección de correo electrónico válida"
                 false
             }
+
             pass.isEmpty() -> {
                 loginPassword.error = "Se requiere contraseña"
                 false
             }
+
             pass.length < 6 -> {
                 loginPassword.error = "La contraseña debe tener al menos 6 caracteres"
                 false
             }
+
             else -> true
         }
     }
