@@ -8,6 +8,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,6 +18,7 @@ import com.wo.burgerblend.R
 import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CartAdapter
 import com.wo.burgerblend.helper.CartHelper
+import kotlin.properties.Delegates
 
 class CartActivity : AppCompatActivity() {
     private lateinit var recyclerViewCart: RecyclerView
@@ -29,6 +31,8 @@ class CartActivity : AppCompatActivity() {
     private lateinit var totalPrice: TextView
     private lateinit var emptyCart: TextView
     private lateinit var buttonCheckout: TextView
+
+    private var totalOrder by Delegates.notNull<Double>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class CartActivity : AppCompatActivity() {
         cartHelper = CartHelper(this)
         initView()
         bindRecyclerViewCart()
+        checkOut()
         navigate()
     }
 
@@ -55,6 +60,8 @@ class CartActivity : AppCompatActivity() {
         totalPrice = findViewById(R.id.textView_totalPriceCart)
         emptyCart = findViewById(R.id.textView_emptyCart)
         buttonCheckout = findViewById(R.id.textView_buttonCheckoutCart)
+
+        totalOrder = cartHelper.getTotalOrderPrice()
     }
 
     private fun navigate() {
@@ -87,17 +94,12 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun updateCartData() {
-        val totalOrder = cartHelper.getTotalOrderPrice()
         val igv = cartHelper.getIgv()
         val total = cartHelper.getTotalPrice()
 
         totalOrderPrice.text = "S/. %.2f".format(totalOrder)
         igvPrice.text = "S/. %.2f".format(igv)
         totalPrice.text = "S/. %.2f".format(total)
-
-        buttonCheckout.setOnClickListener {
-            Toast.makeText(this, "Botón de pago", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun updateEmptyCartView() {
@@ -107,6 +109,21 @@ class CartActivity : AppCompatActivity() {
         } else {
             emptyCart.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun checkOut() {
+        buttonCheckout.setOnClickListener {
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle("Confirmar Pago")
+            alert.setMessage("¿Desea pagar S/. %.2f?".format(totalOrder))
+            alert.setPositiveButton("Aceptar") { _, _ ->
+                cartHelper.checkOut()
+                Toast.makeText(this, "Pago Exitoso", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            alert.setNegativeButton("Cancelar") { _, _ -> }
+            alert.show()
         }
     }
 }

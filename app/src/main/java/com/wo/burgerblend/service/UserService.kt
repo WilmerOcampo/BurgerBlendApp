@@ -8,15 +8,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.wo.burgerblend.database.DatabaseHelper
 import com.wo.burgerblend.domain.User
-import kotlinx.coroutines.tasks.await
 
 
 class UserService(private val context: Context) {
     private val reference = FirebaseDatabase.getInstance().getReference("users")
     private val auth = FirebaseAuth.getInstance()
-    private val sqlLite = DatabaseHelper(context)
 
     private val defImg =
         "https://firebasestorage.googleapis.com/v0/b/burger-blend.appspot.com/o/users%2FUser%20Image%20Defaut.jpg?alt=media&token=79f019bd-6a1e-427a-8ed9-8f0766580b9c"
@@ -51,6 +48,13 @@ class UserService(private val context: Context) {
         })
     }
 
+    fun currentUserDetails(callback: (User?) -> Unit) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let {
+            userByUid(it.uid, callback)
+        } ?: callback(null)
+    }
+
     fun userByUid(uid: String, callback: (User?) -> Unit) {
         reference.orderByChild("uid").equalTo(uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -65,21 +69,21 @@ class UserService(private val context: Context) {
             })
     }
 
-    private fun defaultUserData(user: User){
+    private fun defaultUserData(user: User) {
         user.image = defImg
         user.role = "USER"
         user.id = maxId() + 1
     }
 
-     fun createUser(user: User) {
+    fun createUser(user: User) {
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener { authResult ->
                 val firebaseUser = authResult.user
                 firebaseUser?.let { u ->
                     user.uid = u.uid
                     defaultUserData(user)
-                    val id = reference.push().key.toString()
-                    reference.child(id).setValue(user)
+                    val key = reference.push().key.toString()
+                    reference.child(key).setValue(user)
                 }
             }
             .addOnFailureListener { exception ->
@@ -87,17 +91,12 @@ class UserService(private val context: Context) {
             }
     }
 
-
     private fun updateUser(user: User) {
         reference.child(user.key).setValue(user)
     }
 
     fun deleteUser(user: User) {
         reference.child(user.key).removeValue()
-    }
-
-    fun updateActiveState(key: String, active: Boolean) {
-        reference.child(key).child("active").setValue(active)
     }
 
     private fun maxId(): Long {

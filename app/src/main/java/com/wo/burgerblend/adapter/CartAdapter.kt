@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
+import com.wo.burgerblend.UserViewModel
+import com.wo.burgerblend.activity.CartActivity
 import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
 

@@ -3,9 +3,16 @@ package com.wo.burgerblend.helper
 import android.content.Context
 import android.widget.Toast
 import com.wo.burgerblend.domain.Food
+import com.wo.burgerblend.domain.Order
+import com.wo.burgerblend.domain.OrderItem
+import com.wo.burgerblend.service.OrderService
+import com.wo.burgerblend.service.UserService
 
 class CartHelper(private val context: Context) {
     private val tinyDB: TinyDB = TinyDB(context)
+    private var orderService = OrderService(context)
+
+    private val userService = UserService(context)
 
     fun addToCart(food: Food) {
         val cart = getCart()
@@ -45,18 +52,6 @@ class CartHelper(private val context: Context) {
         return tinyDB.getListObject("cart")
     }
 
-    fun removeFromCart(food: Food) {
-        // Implementar lógica para eliminar del carrito si es necesario
-    }
-
-    fun clearCart() {
-        // Implementar lógica para limpiar el carrito si es necesario
-    }
-
-    fun getCartSize(): Int {
-        return getCart().size
-    }
-
     fun getTotalPrice(): Double {
         val cart = getCart()
         var totalPrice = 0.0
@@ -74,19 +69,33 @@ class CartHelper(private val context: Context) {
         return getTotalPrice() - getIgv()
     }
 
-    fun saveCart() {
-        // Implementar lógica para guardar el carrito si es necesario
+    fun checkOut() {
+        userService.currentUserDetails { user ->
+            if (user != null) {
+                val userId = user.id
+                val orderItems: ArrayList<OrderItem> = ArrayList()
+                val cart = getCart()
+                for (item in cart) {
+                    val orderItem =
+                        OrderItem(orderKey = "", foodId = item.id, quantity = item.quantity)
+                    orderItems.add(orderItem)
+                }
+                val order = Order(
+                    key = "",
+                    id = 0,
+                    userId = userId,
+                    orderDate = "",
+                    total = getTotalOrderPrice()
+                )
+                orderService.createOrder(order, orderItems)
+                clearCart()
+            } else {
+                Toast.makeText(context, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    fun loadCart() {
-        // Implementar lógica para cargar el carrito si es necesario
-    }
-
-    fun clearData() {
-        // Implementar lógica para limpiar datos si es necesario
-    }
-
-    fun initCart() {
-        // Implementar lógica para inicializar el carrito si es necesario
+    private fun clearCart() {
+        tinyDB.putListObject("cart", ArrayList<Food>())
     }
 }
