@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.wo.burgerblend.R
+import com.wo.burgerblend.activity.food.MenuActivity
 import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
@@ -67,6 +68,12 @@ class MainActivity : AppCompatActivity() {
         val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButtonHome)
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnMenuItems: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonHome)
+        btnMenuItems.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
     }

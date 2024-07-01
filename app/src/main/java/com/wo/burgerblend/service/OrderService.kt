@@ -14,29 +14,35 @@ import com.wo.burgerblend.domain.OrderItem
 class OrderService(private val context: Context) {
     private val reference = FirebaseDatabase.getInstance().getReference("orders")
     private val itemReference = FirebaseDatabase.getInstance().getReference("orderItems")
+    private val foodService = FoodService()
 
-    fun orders(callback: (List<Order>) -> Unit) {
+    fun orders(userId: Long, callback: (List<Order>) -> Unit) {
         if (isNetworkAvailable()) {
-            ordersFirebase(callback)
+            ordersFirebase(userId, callback)
         } else {
-            //usersSQLite(callback)
+            // Manejo para obtener las órdenes desde SQLite u otro almacenamiento local
+            // usersSQLite(callback)
         }
     }
 
-    private fun ordersFirebase(callback: (List<Order>) -> Unit) {
+    private fun ordersFirebase(userId: Long, callback: (List<Order>) -> Unit) {
         val orders: MutableList<Order> = mutableListOf()
 
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+        reference.orderByChild("userId").equalTo(userId.toDouble()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 orders.clear()
-                for (userSnapshot in snapshot.children) {
-                    val order = userSnapshot.getValue(Order::class.java)
+                for (orderSnapshot in snapshot.children) {
+                    val order = orderSnapshot.getValue(Order::class.java)
                     order?.let {
-                        orders.add(it)
+                        val orderId = order.key // Obtener el ID de la orden
+                        itemsForOrder(orderId) { orderItems ->
+                            it.orderItems = orderItems
+                            orders.add(it)
+                            callback(orders)
+                        }
                     }
                 }
-                callback(orders)
-                //saveUsersToSQLite(users)
+                //callback(orders)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -45,15 +51,49 @@ class OrderService(private val context: Context) {
         })
     }
 
+    private fun itemsForOrder(orderId: String, callback: (List<OrderItem>) -> Unit) {
+        val orderItems: MutableList<OrderItem> = mutableListOf()
+
+        itemReference.orderByChild("orderKey").equalTo(orderId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                orderItems.clear()
+                for (itemSnapshot in snapshot.children) {
+                    val orderItem = itemSnapshot.getValue(OrderItem::class.java)
+                    orderItem?.let {
+                        orderItems.add(it)
+                    }
+                }
+                foodDetailsForOrderItems(orderItems) { updatedOrderItems ->
+                    callback(updatedOrderItems)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(emptyList())
+            }
+        })
+    }
+
+    private fun foodDetailsForOrderItems(orderItems: List<OrderItem>, callback: (List<OrderItem>) -> Unit) {
+        val updatedOrderItems: MutableList<OrderItem> = mutableListOf()
+        var count = 0
+
+        for (orderItem in orderItems) {
+            foodService.foodById(orderItem.foodId) { food ->
+                orderItem.foodName = food?.name ?: "Unknown Food"
+                orderItem.foodImage = food?.image ?: ""
+                updatedOrderItems.add(orderItem)
+
+                count++
+                if (count == orderItems.size) {
+                    callback(updatedOrderItems)
+                }
+            }
+        }
+    }
+
+
     fun createOrder(order: Order, orderItems: List<OrderItem>) {
-        /*val key = reference.push().key.toString()
-        order.key = key
-        order.id = maxIdOrder() + 1
-        order.orderDate = System.currentTimeMillis().toString()
-        reference.child(key).setValue(order)
-        orderItems.forEach {
-            createOrderItem(order.key, it.foodId, it.quantity)
-        }*/
         maxIdOrder { maxId ->
             val key = reference.push().key.toString()
             order.key = key
@@ -73,14 +113,6 @@ class OrderService(private val context: Context) {
         itemReference.child(key).setValue(orderItem)
     }
 
-    /*private fun maxIdOrder(): Long {
-        var maxId = 4000L
-        ordersFirebase { orders ->
-            if (orders.isNotEmpty())
-                maxId = orders.maxOfOrNull { it.id } ?: 4000L
-        }
-        return maxId
-    }*/
     private fun maxIdOrder(callback: (Long) -> Unit) {
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -98,7 +130,6 @@ class OrderService(private val context: Context) {
             }
         })
     }
-
 
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =

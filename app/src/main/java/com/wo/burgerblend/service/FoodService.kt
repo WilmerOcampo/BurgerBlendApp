@@ -34,4 +34,21 @@ class FoodService {
             }
         })
     }
+
+    fun foodById(foodId: Long, callback: (Food?) -> Unit) {
+        reference.orderByChild("id").equalTo(foodId.toDouble()).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val food = snapshot.children.first().getValue(Food::class.java)
+                    callback(food)
+                } else {
+                    callback(null)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
 }
