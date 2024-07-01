@@ -82,5 +82,4 @@ class DatabaseHelper(context: Context) :
 
         return categories
     }
-
 }

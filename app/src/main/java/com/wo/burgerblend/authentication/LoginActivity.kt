@@ -7,16 +7,22 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.wo.burgerblend.R
+import com.wo.burgerblend.UserViewModel
 import com.wo.burgerblend.activity.MainActivity
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var signupRedirectText: TextView
     private lateinit var loginButton: Button
     private lateinit var auth: FirebaseAuth
+
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,14 @@ class LoginActivity : AppCompatActivity() {
         signupRedirectText.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+
+        userViewModel.user.observe(this, Observer { user ->
+            if (user != null) {
+                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        })
     }
 
     private fun validateInputs(email: String, pass: String): Boolean {
@@ -65,14 +79,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signInUser(email: String, pass: String) {
-        auth.signInWithEmailAndPassword(email, pass)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error de inicio de sesion: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+        userViewModel.signIn(email, pass, {
+        }, { e ->
+            Toast.makeText(this, "Error de inicio de sesión: ${e.message}", Toast.LENGTH_SHORT)
+                .show()
+        })
     }
 }

@@ -10,12 +10,12 @@ import com.google.firebase.database.ValueEventListener
 import com.wo.burgerblend.database.DatabaseHelper
 import com.wo.burgerblend.domain.Category
 
-class CategoryServiceImpl(private val context: Context): ICategoryService {
+class CategoryService(private val context: Context) {
     private val database = FirebaseDatabase.getInstance()
     private val reference = database.getReference("categories")
     private val sqlLite = DatabaseHelper(context)
 
-    override fun categories(callback: (List<Category>) -> Unit) {
+    fun categories(callback: (List<Category>) -> Unit) {
         if (isNetworkAvailable()) {
             readFromFirebase(callback)
         } else {

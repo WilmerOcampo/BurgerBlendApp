@@ -16,7 +16,8 @@ import java.io.IOException
 import java.util.Arrays
 
 class DataStorageHelper(context: Context) {
-    private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val preferences: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
     private var DEFAULT_APP_IMAGEDATA_DIRECTORY: String? = null
     var lastImagePath: String = ""
         private set
@@ -70,7 +71,8 @@ class DataStorageHelper(context: Context) {
      * @return la ruta completa de la imagen. Si falla al crear el directorio, devuelve una cadena vacía
      */
     private fun setupFullPath(imageName: String): String {
-        val mFolder = File(Environment.getExternalStorageDirectory(), DEFAULT_APP_IMAGEDATA_DIRECTORY!!)
+        val mFolder =
+            File(Environment.getExternalStorageDirectory(), DEFAULT_APP_IMAGEDATA_DIRECTORY!!)
         if (isExternalStorageReadable() && isExternalStorageWritable() && !mFolder.exists()) {
             if (!mFolder.mkdirs()) {
                 Log.e("ERROR", "Failed to setup folder")

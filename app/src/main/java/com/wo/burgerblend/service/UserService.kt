@@ -49,13 +49,14 @@ class UserService(private val context: Context) {
         })
     }
 
-    fun userByUid(uid:String, callback: (User?) -> Unit){
+    fun userByUid(uid: String, callback: (User?) -> Unit) {
         reference.orderByChild("uid").equalTo(uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.children.firstOrNull()?.getValue(User::class.java)
                     callback(user)
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     callback(null)
                 }
@@ -73,10 +74,10 @@ class UserService(private val context: Context) {
         reference.child(user.key).setValue(user)
     }
 
-    suspend fun save(user:User, file: File){
-        if (user.key != null){
+    suspend fun save(user: User, file: File) {
+        if (user.key != null) {
             updateUser(user)
-        } else{
+        } else {
             createUser(user)
         }
     }
@@ -85,17 +86,18 @@ class UserService(private val context: Context) {
         reference.child(user.key).removeValue()
     }
 
-    suspend fun updateActiveState(key:String, active:Boolean) {
+    suspend fun updateActiveState(key: String, active: Boolean) {
         reference.child(key).child("active").setValue(active)
     }
 
-    suspend fun maxId(callback:(Int)->Unit){
+    suspend fun maxId(callback: (Int) -> Unit) {
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val users = snapshot.children.mapNotNull { it.getValue(User::class.java) }
                 val maxId = users.maxByOrNull { it.id }?.id ?: 1000
                 callback(maxId.toInt())
             }
+
             override fun onCancelled(error: DatabaseError) {
                 callback(1000)
             }

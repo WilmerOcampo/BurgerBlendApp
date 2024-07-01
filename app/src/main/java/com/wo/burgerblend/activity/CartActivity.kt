@@ -1,5 +1,6 @@
 package com.wo.burgerblend.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -13,11 +14,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
+import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CartAdapter
 import com.wo.burgerblend.helper.CartHelper
 
 class CartActivity : AppCompatActivity() {
-
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var scrollView: ScrollView
     private lateinit var cartHelper: CartHelper
@@ -57,16 +58,23 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        /*val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
+        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
+        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButtonCart)
 
         btnHome.setOnClickListener {
             finish()
-        }*/
+        }
+        btnProfile.setOnClickListener {
+            finish()
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun bindRecyclerViewCart() {
         recyclerViewCart.apply {
-            layoutManager = LinearLayoutManager(this@CartActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(this@CartActivity, LinearLayoutManager.VERTICAL, false)
             adapter = CartAdapter(cartHelper.getCart()) {
                 updateCartData()
                 updateEmptyCartView()
@@ -87,7 +95,7 @@ class CartActivity : AppCompatActivity() {
         igvPrice.text = "S/. %.2f".format(igv)
         totalPrice.text = "S/. %.2f".format(total)
 
-        buttonCheckout.setOnClickListener{
+        buttonCheckout.setOnClickListener {
             Toast.makeText(this, "Botón de pago", Toast.LENGTH_SHORT).show()
         }
     }
@@ -101,6 +109,4 @@ class CartActivity : AppCompatActivity() {
             scrollView.visibility = View.VISIBLE
         }
     }
-
-
 }

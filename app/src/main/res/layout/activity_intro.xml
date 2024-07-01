@@ -29,6 +29,19 @@
         app:layout_constraintStart_toStartOf="@+id/imageView_backgroundIntro"
         app:layout_constraintTop_toTopOf="@+id/imageView_backgroundIntro" />
 
+    <!--<ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView_backgroundIntro"
+        app:srcCompat="@drawable/burger_blend_text"
+        app:tint="@color/white" />-->
+
     <TextView
         android:id="@+id/textView_burgerBlend"
         android:layout_width="wrap_content"

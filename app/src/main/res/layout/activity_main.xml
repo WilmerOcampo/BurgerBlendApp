@@ -223,7 +223,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_homeAppButton"
+                    android:id="@+id/linearLayout_homeAppButtonHome"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -246,7 +246,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_perfilAppButton"
+                    android:id="@+id/linearLayout_profileAppButtonHome"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -287,7 +287,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_productoAppButton"
+                    android:id="@+id/linearLayout_productsAppButtonHome"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -311,7 +311,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_soporteAppButton"
+                    android:id="@+id/linearLayout_supportAppButtonHome"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"

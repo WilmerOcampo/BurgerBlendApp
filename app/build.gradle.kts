@@ -60,7 +60,11 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     //implementation(libs.firebase.database.ktx)
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+    //implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     //Firebase
+
+    // https://mvnrepository.com/artifact/jp.wasabeef/glide-transformations
+    implementation(libs.glide.transformations)
+
 
 }

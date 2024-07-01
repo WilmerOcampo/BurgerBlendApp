@@ -199,7 +199,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_homeAppButton"
+                    android:id="@+id/linearLayout_homeAppButtonCart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -222,7 +222,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_perfilAppButton"
+                    android:id="@+id/linearLayout_profileAppButtonCart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -263,7 +263,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_productoAppButton"
+                    android:id="@+id/linearLayout_productsAppButtonCart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -287,7 +287,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_soporteAppButton"
+                    android:id="@+id/linearLayout_supportAppButtonCart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -318,7 +318,7 @@
             android:layout_gravity="bottom">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton_shoppingCartHome"
+                android:id="@+id/floatingActionButton_shoppingCartCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

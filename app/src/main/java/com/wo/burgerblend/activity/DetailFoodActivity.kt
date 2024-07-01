@@ -53,7 +53,8 @@ class DetailFoodActivity : AppCompatActivity() {
 
         categories { categories ->
             val category = categories.find { it.id == food.category }
-            categoryFood.text = category?.name?: "Categoría desconocida" // Si existe muestra nombre de la categoría
+            categoryFood.text = category?.name
+                ?: "Categoría desconocida" // Si existe muestra nombre de la categoría
         }
 
         priceFood.text = "S/. " + food.price.toString()
@@ -118,6 +119,7 @@ class DetailFoodActivity : AppCompatActivity() {
                 }
                 callback(categories)
             }
+
             override fun onCancelled(error: DatabaseError) {
                 // Manejar errores
                 callback(categories)
