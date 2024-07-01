@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "461117478953",
-    "project_id": "burguerblend-1484c",
-    "storage_bucket": "burguerblend-1484c.appspot.com"
+    "project_number": "78492749957",
+    "project_id": "burger-blend",
+    "storage_bucket": "burger-blend.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:461117478953:android:f041f9e23b8dda83756438",
+        "mobilesdk_app_id": "1:78492749957:android:a2cd38bb4248a5acd699ec",
         "android_client_info": {
           "package_name": "com.wo.burgerblend"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBjbBSArtcY16ebB2U_54BR4zksmPSpOHU"
+          "current_key": "AIzaSyBu9_YYyX37wwpZKaQQ5rlsCHu0y1Xub1Q"
         }
       ],
       "services": {

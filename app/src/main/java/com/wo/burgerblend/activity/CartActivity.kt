@@ -57,11 +57,11 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
+        /*val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
 
         btnHome.setOnClickListener {
             finish()
-        }
+        }*/
     }
 
     private fun bindRecyclerViewCart() {
