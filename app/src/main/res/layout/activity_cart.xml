@@ -199,7 +199,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_homeAppButtonCart"
+                    android:id="@+id/linearLayout_homeAppButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -263,7 +263,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_ajustesButton"
+                    android:id="@+id/linearLayout_productoAppButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -274,20 +274,20 @@
                         android:id="@+id/imageView_home"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        app:srcCompat="@drawable/baseline_support_agent_24" />
+                        app:srcCompat="@drawable/baseline_list_alt_24" />
 
                     <TextView
                         android:id="@+id/textView_home"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Soporte"
+                        android:text="Menú"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_ajustesAppButton"
+                    android:id="@+id/linearLayout_soporteAppButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -303,7 +303,7 @@
                         android:id="@+id/textView_ajustesApp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ajustes"
+                        android:text="Soporte"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -318,7 +318,7 @@
             android:layout_gravity="bottom">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton_cartCart"
+                android:id="@+id/floatingActionButton_shoppingCartHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -335,4 +335,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
