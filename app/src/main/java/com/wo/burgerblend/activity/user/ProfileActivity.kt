@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.wo.burgerblend.R
 import com.wo.burgerblend.UserViewModel
 import com.wo.burgerblend.activity.CartActivity
+import com.wo.burgerblend.activity.food.MenuActivity
 import com.wo.burgerblend.authentication.LoginActivity
 import com.wo.burgerblend.service.UserService
 import jp.wasabeef.glide.transformations.CropCircleTransformation
@@ -125,6 +126,12 @@ class ProfileActivity : AppCompatActivity() {
         btnCart.setOnClickListener {
             finish()
             val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+        val btnMenu : LinearLayout = findViewById(R.id.linearLayout_productsAppButtonProf)
+        btnMenu.setOnClickListener {
+            finish()
+            val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
     }
