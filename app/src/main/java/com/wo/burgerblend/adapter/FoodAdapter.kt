@@ -13,8 +13,8 @@ import com.wo.burgerblend.activity.DetailFoodActivity
 import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
 
-class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdapter.PopularFoodViewHolder>() {
-
+class FoodAdapter(private var foods: List<Food>) :
+    RecyclerView.Adapter<FoodAdapter.PopularFoodViewHolder>() {
     class PopularFoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var nameFood: TextView = view.findViewById(R.id.textView_nameFood)
         private var imageFood: ImageView = view.findViewById(R.id.imageView_imageFood)
@@ -44,6 +44,11 @@ class FoodAdapter(private var foods: List<Food>) : RecyclerView.Adapter<FoodAdap
                 itemView.context.startActivity(intent)
             }
         }
+    }
+
+    fun foods(list: List<Food>) {
+        foods = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularFoodViewHolder {

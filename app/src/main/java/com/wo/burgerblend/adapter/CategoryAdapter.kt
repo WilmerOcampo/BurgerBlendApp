@@ -11,13 +11,17 @@ import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
 import com.wo.burgerblend.domain.Category
 
-class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private var categories: List<Category>, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    interface ItemClickListener {
+        fun onItemClick(categoryId: Long)
+    }
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var nameCategory: TextView = view.findViewById(R.id.textView_nameCategory)
         private var imageCategory: ImageView = view.findViewById(R.id.imageView_imageCategory)
 
-        fun bind(category: Category) {
+        fun bind(category: Category, itemClickListener: ItemClickListener) {
             nameCategory.text = category.name
 
             Glide.with(itemView)
@@ -26,8 +30,12 @@ class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Ada
                 .error(R.drawable.veggie_burger) // No se pueda cargar la imagen
                 .into(imageCategory)
 
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 Toast.makeText(itemView.context, "Categoría: ${category.name}", Toast.LENGTH_SHORT).show()
+            }*/
+
+            itemView.setOnClickListener {
+                itemClickListener.onItemClick(category.id)
             }
         }
     }
@@ -39,7 +47,7 @@ class CategoryAdapter(private var categories: List<Category>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        return holder.bind(categories[position])
+        return holder.bind(categories[position], itemClickListener)
     }
 
     override fun getItemCount(): Int {

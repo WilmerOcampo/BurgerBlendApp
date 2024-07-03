@@ -128,7 +128,7 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
-        val btnMenu : LinearLayout = findViewById(R.id.linearLayout_productsAppButtonProf)
+        val btnMenu: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonProf)
         btnMenu.setOnClickListener {
             finish()
             val intent = Intent(this, MenuActivity::class.java)
