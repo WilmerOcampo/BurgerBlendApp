@@ -82,11 +82,11 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
             foodAdapter
         )
 
-        setupRecyclerView(
+        /*setupRecyclerView(
             recyclerViewMenuItems,
             GridLayoutManager(this, 2),
             foodAdapter
-        )
+        )*/
     }
 
     private fun setupRecyclerView(
@@ -100,10 +100,10 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
 
     private fun navigate() {
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
-        btnHome.setOnClickListener {
+       /* btnHome.setOnClickListener {
             finish()
             startActivity(Intent(this, MainActivity::class.java))
-        }
+        }*/
         val btnCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
         btnCart.setOnClickListener {
             finish()
