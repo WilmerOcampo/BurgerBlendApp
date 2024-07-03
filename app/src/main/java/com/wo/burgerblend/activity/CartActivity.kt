@@ -137,7 +137,7 @@ class CartActivity : AppCompatActivity() {
                     .setPositiveButton("Aceptar") { dialog, _ ->
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
-                    }.setNegativeButton("No") { dialog, _ ->
+                    }.setNegativeButton("Cancelar") { dialog, _ ->
                         dialog.dismiss()
                     }
 
