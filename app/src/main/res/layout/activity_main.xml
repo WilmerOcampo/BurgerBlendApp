@@ -59,70 +59,18 @@
                     app:layout_constraintTop_toTopOf="@+id/textView_holaUsuario"
                     app:srcCompat="@drawable/default_profile" />
 
-                <EditText
-                    android:id="@+id/editText_buscarComida"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/background_search"
-                    android:drawableStart="@drawable/baseline_search_24"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="Encuentra tu comida"
-                    android:inputType="text"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle=""
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_ordenarDisfrutar" />
-
-                <TextView
-                    android:id="@+id/textView_categories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Categorías"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout_orangeLightBanner" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_category"
+                <LinearLayout
+                    android:id="@+id/linearLayout_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    android:layout_margin="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_categories" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_ordenarDisfrutar">
 
-                <TextView
-                    android:id="@+id/textView_popularFoods"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Popular"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_category" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_popularFood"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_popularFoods" />
+                    <include layout="@layout/search_edit_text" />
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout_orangeLightBanner"
@@ -134,7 +82,7 @@
                     android:background="@drawable/orange_s_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText_buscarComida">
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_search">
 
                     <ImageView
                         android:id="@+id/imageView_banner"
@@ -152,35 +100,11 @@
                         android:layout_height="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="30dp"
-                        app:tint="@color/white"
                         android:adjustViewBounds="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/imageView_banner"
-                        app:srcCompat="@drawable/burger_blend_text" />
-
-                    <!--<TextView
-                        android:id="@+id/textView_deliveryGratis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Delivery Gratis!"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView_banner" />
-
-                    <TextView
-                        android:id="@+id/textView_fechaDeliveryGratis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 Jul - 28 Jul"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_deliveryGratis"
-                        app:layout_constraintStart_toStartOf="@+id/textView_deliveryGratis"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_deliveryGratis" />-->
+                        app:srcCompat="@drawable/burger_blend_text"
+                        app:tint="@color/white" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/button_nuevaOrden"
@@ -207,168 +131,26 @@
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_views"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout_orangeLightBanner">
+
+                    <include layout="@layout/category_recycler_view" />
+
+                    <include layout="@layout/food_recycler_view" />
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout_appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/white"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleVerticalOffset="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_homeAppButtonHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView_homeApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/baseline_home_24" />
-
-                    <TextView
-                        android:id="@+id/textView_homeApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Home"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_profileAppButtonHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView_perfilApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/baseline_person_24" />
-
-                    <TextView
-                        android:id="@+id/textView_perfilApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Perfil"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_productsAppButtonHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-
-
-                    <ImageView
-                        android:id="@+id/imageView_home"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/baseline_list_alt_24" />
-
-                    <TextView
-                        android:id="@+id/textView_home"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Menú"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_supportAppButtonHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView_ajustesApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/baseline_settings_24" />
-
-                    <TextView
-                        android:id="@+id/textView_ajustesApp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Soporte"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/shoppingCart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton_shoppingCartHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/orange"
-                android:contentDescription="Cart"
-                android:elevation="3dp"
-                android:src="@drawable/baseline_shopping_cart_24"
-                app:backgroundTint="@color/orange"
-                app:layout_constraintBottom_toBottomOf="@id/shoppingCart"
-                app:layout_constraintEnd_toEndOf="@id/shoppingCart"
-                app:layout_constraintStart_toStartOf="@id/shoppingCart"
-                app:maxImageSize="35dp"
-                app:tint="@color/white" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    <include layout="@layout/bottom_app_bar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

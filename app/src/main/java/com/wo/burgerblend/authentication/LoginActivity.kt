@@ -1,9 +1,9 @@
 package com.wo.burgerblend.authentication
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var signupRedirectText: TextView
-    private lateinit var loginButton: Button
+    private lateinit var loginButton: TextView
     private lateinit var auth: FirebaseAuth
 
     private val userViewModel: UserViewModel by viewModels()
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginEmail = findViewById(R.id.login_email)
         loginPassword = findViewById(R.id.login_password)
-        loginButton = findViewById(R.id.login_button)
+        loginButton = findViewById(R.id.textView_buttonLogin)
         signupRedirectText = findViewById(R.id.signUpRedirectText)
         auth = FirebaseAuth.getInstance()
 
@@ -47,13 +47,22 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        userViewModel.user.observe(this, Observer { user ->
+        userViewModel.firebaseUser.observe(this, Observer { user ->
             if (user != null) {
-                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                welcomeDialog()
+            }
+        })
+    }
+
+    private fun welcomeDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("¡Bienvenido a Burger Blend!")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
-        })
+            .show()
     }
 
     private fun validateInputs(email: String, pass: String): Boolean {

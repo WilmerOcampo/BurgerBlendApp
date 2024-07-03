@@ -8,6 +8,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,8 +16,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wo.burgerblend.R
+import com.wo.burgerblend.UserViewModel
+import com.wo.burgerblend.activity.food.MenuActivity
 import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CartAdapter
+import com.wo.burgerblend.authentication.LoginActivity
 import com.wo.burgerblend.helper.CartHelper
 import kotlin.properties.Delegates
 
@@ -33,6 +37,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var buttonCheckout: TextView
 
     private var totalOrder by Delegates.notNull<Double>()
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,16 +70,28 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonCart)
-        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButtonCart)
+        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
+        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButton)
+        val btnMenu: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonHome)
 
         btnHome.setOnClickListener {
             finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
         btnProfile.setOnClickListener {
             finish()
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        }
+        btnMenu.setOnClickListener {
+            finish()
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
+        val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
+        btnSettings.setOnClickListener {
+            finish()
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
@@ -114,16 +131,29 @@ class CartActivity : AppCompatActivity() {
 
     private fun checkOut() {
         buttonCheckout.setOnClickListener {
-            val alert = AlertDialog.Builder(this)
-            alert.setTitle("Confirmar Pago")
-            alert.setMessage("¿Desea pagar S/. %.2f?".format(totalOrder))
-            alert.setPositiveButton("Aceptar") { _, _ ->
-                cartHelper.checkOut()
-                Toast.makeText(this, "Pago Exitoso", Toast.LENGTH_SHORT).show()
-                finish()
+            if (userViewModel.firebaseUser.value == null) {
+                AlertDialog.Builder(this)
+                    .setTitle("¡Inicia sesión para proceder con el pago!")
+                    .setPositiveButton("Aceptar") { dialog, _ ->
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }.setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                    .show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle("Confirmar Pago")
+                alert.setMessage("¿Desea pagar, el monto a pagar: S/. %.2f?".format(totalOrder))
+                alert.setPositiveButton("Aceptar") { _, _ ->
+                    cartHelper.checkOut()
+                    Toast.makeText(this, "Pago Exitoso", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                alert.setNegativeButton("Cancelar") { _, _ -> }
+                alert.show()
             }
-            alert.setNegativeButton("Cancelar") { _, _ -> }
-            alert.show()
         }
     }
 }

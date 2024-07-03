@@ -1,23 +1,21 @@
 package com.wo.burgerblend.service
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wo.burgerblend.domain.Order
 import com.wo.burgerblend.domain.OrderItem
+import com.wo.burgerblend.utils.Utils
 
 
-class OrderService(private val context: Context) {
+class OrderService {
     private val reference = FirebaseDatabase.getInstance().getReference("orders")
     private val itemReference = FirebaseDatabase.getInstance().getReference("orderItems")
     private val foodService = FoodService()
 
     fun orders(userId: Long, callback: (List<Order>) -> Unit) {
-        if (isNetworkAvailable()) {
+        if (Utils.isNetworkAvailable()) {
             ordersFirebase(userId, callback)
         } else {
             // Manejo para obtener las órdenes desde SQLite u otro almacenamiento local
@@ -129,17 +127,5 @@ class OrderService(private val context: Context) {
                 callback(4000L)
             }
         })
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val network = connectivityManager.activeNetwork
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(network)
-        return capabilities != null &&
-                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
     }
 }

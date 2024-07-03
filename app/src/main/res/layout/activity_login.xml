@@ -60,17 +60,19 @@
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Iniciar sesión"
-                android:id="@+id/login_button"
-                android:textSize="18sp"
+            <LinearLayout
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/orange"
-                android:background="@drawable/orange_button"
-                android:textColor="@color/white"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
 
+                <include
+                    layout="@layout/button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/signUpRedirectText"

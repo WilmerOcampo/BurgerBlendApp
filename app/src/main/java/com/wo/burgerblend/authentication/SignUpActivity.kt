@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signupConfirmPassword: EditText
     private lateinit var signupButton: Button
     private lateinit var loginRedirectText: TextView
-    private var userService = UserService(this)
+    private var userService = UserService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

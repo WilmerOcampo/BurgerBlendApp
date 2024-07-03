@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wo.burgerblend.R
 import com.wo.burgerblend.activity.CartActivity
+import com.wo.burgerblend.activity.MainActivity
+import com.wo.burgerblend.activity.SettingsActivity
 import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CategoryAdapter
 import com.wo.burgerblend.adapter.FoodAdapter
@@ -29,7 +29,7 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
     private lateinit var txtSearch: EditText
 
     private var foodService = FoodService()
-    private var categoryService = CategoryService(this)
+    private var categoryService = CategoryService()
     private var foodAdapter = FoodAdapter(emptyList())
     private var foodList: List<Food> = listOf()
 
@@ -54,8 +54,8 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
     }
 
     private fun setupRecyclerViews() {
-        val recyclerViewMenuItems: RecyclerView = findViewById(R.id.recyclerView_menuItems)
-        val recyclerViewCategories: RecyclerView = findViewById(R.id.recyclerView_categoriesMenu)
+        val recyclerViewMenuItems: RecyclerView = findViewById(R.id.recyclerView_popularFood)
+        val recyclerViewCategories: RecyclerView = findViewById(R.id.recyclerView_category)
 
         categoryService.categories { categories ->
             setupRecyclerView(
@@ -81,6 +81,12 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
             GridLayoutManager(this, 2),
             foodAdapter
         )
+
+        setupRecyclerView(
+            recyclerViewMenuItems,
+            GridLayoutManager(this, 2),
+            foodAdapter
+        )
     }
 
     private fun setupRecyclerView(
@@ -93,21 +99,27 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
     }
 
     private fun navigate() {
-        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonMenu)
+        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
         btnHome.setOnClickListener {
             finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
-        val btnCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartMenu)
+        val btnCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
         btnCart.setOnClickListener {
             finish()
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
-        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButtonMenu)
+        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButton)
         btnProfile.setOnClickListener {
             finish()
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        }
+        val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
+        btnSettings.setOnClickListener {
+            finish()
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 

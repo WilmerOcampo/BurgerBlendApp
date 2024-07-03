@@ -1,8 +1,5 @@
 package com.wo.burgerblend.service
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,22 +8,14 @@ import com.google.firebase.database.ValueEventListener
 import com.wo.burgerblend.domain.User
 
 
-class UserService(private val context: Context) {
+class UserService {
     private val reference = FirebaseDatabase.getInstance().getReference("users")
     private val auth = FirebaseAuth.getInstance()
 
     private val defImg =
         "https://firebasestorage.googleapis.com/v0/b/burger-blend.appspot.com/o/users%2FUser%20Image%20Defaut.jpg?alt=media&token=79f019bd-6a1e-427a-8ed9-8f0766580b9c"
 
-    fun users(callback: (List<User>) -> Unit) {
-        if (isNetworkAvailable()) {
-            usersFirebase(callback)
-        } else {
-            //usersSQLite(callback)
-        }
-    }
-
-    private fun usersFirebase(callback: (List<User>) -> Unit) {
+    private fun users(callback: (List<User>) -> Unit) {
         val users: MutableList<User> = mutableListOf()
 
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -39,7 +28,6 @@ class UserService(private val context: Context) {
                     }
                 }
                 callback(users)
-                //saveUsersToSQLite(users)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -101,23 +89,10 @@ class UserService(private val context: Context) {
 
     private fun maxId(): Long {
         var maxId = 1000L
-        usersFirebase { users ->
+        users { users ->
             if (users.isNotEmpty())
                 maxId = users.maxOfOrNull { it.id } ?: 1000L
         }
         return maxId
-    }
-
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val network = connectivityManager.activeNetwork
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(network)
-        return capabilities != null &&
-                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
     }
 }

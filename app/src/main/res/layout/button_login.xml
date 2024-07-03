@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textView_buttonLogin"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
+        android:background="@drawable/orange_xs_button"
+        android:drawableStart="@drawable/baseline_login_24"
+        android:gravity="center"
+        android:text="Iniciar Sesión"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</merge>

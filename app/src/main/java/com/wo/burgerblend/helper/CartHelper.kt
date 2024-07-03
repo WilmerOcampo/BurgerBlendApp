@@ -9,10 +9,10 @@ import com.wo.burgerblend.service.OrderService
 import com.wo.burgerblend.service.UserService
 
 class CartHelper(private val context: Context) {
-    private val tinyDB: TinyDB = TinyDB(context)
-    private var orderService = OrderService(context)
+    private val storageHelper = StorageHelper(context)
+    private var orderService = OrderService()
 
-    private val userService = UserService(context)
+    private val userService = UserService()
 
     fun addToCart(food: Food) {
         val cart = getCart()
@@ -30,13 +30,13 @@ class CartHelper(private val context: Context) {
         } else {
             cart.add(food)
         }
-        tinyDB.putListObject("cart", cart)
+        storageHelper.putListObject("cart", cart)
         Toast.makeText(context, "Agregado al carrito", Toast.LENGTH_SHORT).show()
     }
 
     fun plusQuantity(foods: ArrayList<Food>, position: Int) {
         foods[position].quantity += 1
-        tinyDB.putListObject("cart", foods)
+        storageHelper.putListObject("cart", foods)
     }
 
     fun minusQuantity(foods: ArrayList<Food>, position: Int) {
@@ -45,11 +45,11 @@ class CartHelper(private val context: Context) {
         } else {
             foods[position].quantity -= 1
         }
-        tinyDB.putListObject("cart", foods)
+        storageHelper.putListObject("cart", foods)
     }
 
     fun getCart(): ArrayList<Food> {
-        return tinyDB.getListObject("cart")
+        return storageHelper.getListObject("cart")
     }
 
     fun getTotalPrice(): Double {
@@ -96,6 +96,6 @@ class CartHelper(private val context: Context) {
     }
 
     private fun clearCart() {
-        tinyDB.putListObject("cart", ArrayList<Food>())
+        storageHelper.putListObject("cart", ArrayList<Food>())
     }
 }

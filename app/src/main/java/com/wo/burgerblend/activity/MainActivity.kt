@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,15 +31,16 @@ import com.wo.burgerblend.service.FoodService
 import com.wo.burgerblend.service.UserService
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 
-class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
+class MainActivity : AppCompatActivity(), /*NavigationActivity()*/
+    CategoryAdapter.ItemClickListener {
     private lateinit var imageProfile: ImageView
     private lateinit var nameUser: TextView
     private lateinit var txtSearch: EditText
     private lateinit var btnOrdenar: TextView
 
     private var foodService = FoodService()
-    private var categoryService = CategoryService(this)
-    private var userService = UserService(this)
+    private var categoryService = CategoryService()
+    private var userService = UserService()
     private var foodAdapter = FoodAdapter(emptyList())
     private var foodList: List<Food> = listOf()
 
@@ -55,11 +55,15 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
         }
 
         initView()
-        bindingHomeView()
+        bindingProfileView()
         setupRecyclerViews()
-        setupSearch()
+        searchFoods()
         navigate()
     }
+
+    /*override fun getLayoutResourceId(): Int {
+        return R.layout.activity_main
+    }*/
 
     private fun initView() {
         imageProfile = findViewById(R.id.imageView_perfilUsuario)
@@ -70,7 +74,7 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
             startActivity(Intent(this, MenuActivity::class.java))
         }
 
-        txtSearch = findViewById(R.id.editText_buscarComida)
+        txtSearch = findViewById(R.id.editText_searchMenusMenu)
     }
 
     private fun navigate() {
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
             startActivity(intent)
         }
 
-        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButtonHome)
+        val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButton)
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
@@ -91,6 +95,12 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
         val btnMenuItems: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonHome)
         btnMenuItems.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
+        btnSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
     }
@@ -126,13 +136,22 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
         )
     }
 
-    private fun bindingHomeView() {
+    private fun setupRecyclerView(
+        recyclerView: RecyclerView,
+        layoutManager: LinearLayoutManager,
+        adapter: RecyclerView.Adapter<*>
+    ) {
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun bindingProfileView() {
         FirebaseAuth.getInstance().addAuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user == null) {
                 clearUserInfo()
             } else {
-                userInfo(user)
+                profileView(user)
             }
         }
 
@@ -147,34 +166,34 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
         imageProfile.setImageResource(R.drawable.default_profile)
     }
 
-    private fun userInfo(user: FirebaseUser) {
+    private fun profileView(user: FirebaseUser) {
         userService.userByUid(user.uid) { detailUser ->
             detailUser?.let { userDetails ->
                 nameUser.text = ("Hola: " + userDetails.name + ' ' + userDetails.lastname)
 
                 val requestOptions = RequestOptions.bitmapTransform(CropCircleTransformation())
-                userDetails.image.let {
+                if (!isFinishing) {
+                    Glide.with(this)
+                        .load(userDetails)
+                        .placeholder(R.drawable.default_profile)
+                        .error(R.drawable.default_profile)
+                        .apply(requestOptions)
+                        .into(imageProfile)
+                }
+
+                /*userDetails.image.let {
                     Glide.with(this)
                         .load(it)
                         .placeholder(R.drawable.default_profile)
                         .error(R.drawable.default_profile)
                         .apply(requestOptions)
                         .into(imageProfile)
-                }
+                }*/
             }
         }
     }
 
-    private fun setupRecyclerView(
-        recyclerView: RecyclerView,
-        layoutManager: LinearLayoutManager,
-        adapter: RecyclerView.Adapter<*>
-    ) {
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-    }
-
-    private fun setupSearch() {
+    private fun searchFoods() {
         txtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -199,5 +218,10 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
             it.category == categoryId
         }
         foodAdapter.foods(filteredList)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Glide.with(this).clear(imageProfile)
     }
 }
