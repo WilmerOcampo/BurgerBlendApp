@@ -131,22 +131,34 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/orange_light_banner"
+                    android:background="@drawable/orange_s_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText_buscarComida">
 
                     <ImageView
                         android:id="@+id/imageView_banner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/image_banner" />
+                        app:srcCompat="@drawable/burger_blend_logo" />
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/imageView_txtBurgerBlend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        app:tint="@color/white"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageView_banner"
+                        app:srcCompat="@drawable/burger_blend_text" />
+
+                    <!--<TextView
                         android:id="@+id/textView_deliveryGratis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -168,17 +180,17 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/textView_deliveryGratis"
                         app:layout_constraintStart_toStartOf="@+id/textView_deliveryGratis"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_deliveryGratis" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView_deliveryGratis" />-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/button_nuevaOrden"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/orange_s_button"
+                        android:background="@drawable/background_white_radius"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_fechaDeliveryGratis"
-                        app:layout_constraintStart_toStartOf="@+id/textView_fechaDeliveryGratis"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_fechaDeliveryGratis">
+                        app:layout_constraintEnd_toEndOf="@+id/imageView_txtBurgerBlend"
+                        app:layout_constraintStart_toStartOf="@+id/imageView_txtBurgerBlend"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView_txtBurgerBlend">
 
                         <TextView
                             android:id="@+id/textView_ordenar"
@@ -189,7 +201,6 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="8dp"
                             android:text="Ordenar"
-                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

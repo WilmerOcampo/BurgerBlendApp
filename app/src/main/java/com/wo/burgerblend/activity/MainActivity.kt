@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
     private lateinit var imageProfile: ImageView
     private lateinit var nameUser: TextView
     private lateinit var txtSearch: EditText
+    private lateinit var btnOrdenar: TextView
 
     private var foodService = FoodService()
     private var categoryService = CategoryService(this)
@@ -63,6 +64,11 @@ class MainActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
     private fun initView() {
         imageProfile = findViewById(R.id.imageView_perfilUsuario)
         nameUser = findViewById(R.id.textView_holaUsuario)
+        btnOrdenar = findViewById(R.id.textView_ordenar)
+
+        btnOrdenar.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+        }
 
         txtSearch = findViewById(R.id.editText_buscarComida)
     }
