@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayout_itemCategory"
     android:layout_width="100dp"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_margin="8dp"
-    android:background="@drawable/background_light_beige">
+    android:background="@drawable/background_white_oval">
 
     <ImageView
         android:id="@+id/imageView_imageCategory"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -27,14 +27,13 @@
         android:id="@+id/textView_nameCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:text="Nombre"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_imageCategory"
-        app:layout_constraintStart_toStartOf="@+id/imageView_imageCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_imageCategory" />
 </androidx.constraintlayout.widget.ConstraintLayout>
