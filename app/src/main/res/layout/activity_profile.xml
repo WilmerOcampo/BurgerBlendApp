@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:layout_margin="20dp"git
+            android:layout_margin="20dp"
             android:padding="5dp"
             android:background="@drawable/background_search"
             android:orientation="horizontal">
