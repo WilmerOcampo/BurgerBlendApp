@@ -1,4 +1,4 @@
-package com.wo.burgerblend.authentication
+package com.wo.burgerblend.activity.auth
 
 import android.app.AlertDialog
 import android.content.Intent

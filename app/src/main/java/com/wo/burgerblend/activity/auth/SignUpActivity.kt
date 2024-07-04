@@ -1,4 +1,4 @@
-package com.wo.burgerblend.authentication
+package com.wo.burgerblend.activity.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signupPhone: EditText
     private lateinit var signupPassword: EditText
     private lateinit var signupConfirmPassword: EditText
-    private lateinit var signupButton: Button
+    private lateinit var signupButton: TextView
     private lateinit var loginRedirectText: TextView
     private var userService = UserService()
 
@@ -41,7 +41,7 @@ class SignUpActivity : AppCompatActivity() {
         signupPhone = findViewById(R.id.signup_phone)
         signupPassword = findViewById(R.id.signup_password)
         signupConfirmPassword = findViewById(R.id.signup_confirm_password)
-        signupButton = findViewById(R.id.signup_button)
+        signupButton = findViewById(R.id.textView_buttonRegister)
         loginRedirectText = findViewById(R.id.loginRedirectText)
 
         signupButton.setOnClickListener {

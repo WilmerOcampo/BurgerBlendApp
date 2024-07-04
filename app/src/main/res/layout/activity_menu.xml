@@ -27,30 +27,18 @@
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/background_search"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/burger_blend_logo" />
 
-                    <ImageView
-                        android:id="@+id/imageView2"
+                    <include
+                        layout="@layout/logo_text_sm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/burger_blend_text" />
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout

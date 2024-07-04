@@ -15,7 +15,7 @@ import com.wo.burgerblend.R
 import com.wo.burgerblend.UserViewModel
 import com.wo.burgerblend.activity.food.MenuActivity
 import com.wo.burgerblend.activity.user.ProfileActivity
-import com.wo.burgerblend.authentication.LoginActivity
+import com.wo.burgerblend.activity.auth.LoginActivity
 
 class SettingsActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
@@ -36,30 +36,31 @@ class SettingsActivity : AppCompatActivity() {
         val btnFloatActionCart: FloatingActionButton =
             findViewById(R.id.floatingActionButton_shoppingCartHome)
 
+        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
+        btnHome.setOnClickListener {
+            finish()
+        }
+
         btnFloatActionCart.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButton)
         btnProfile.setOnClickListener {
-            finish()
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val btnMenuItems: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonHome)
         btnMenuItems.setOnClickListener {
-            finish()
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
-        val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
-        btnHome.setOnClickListener {
-            finish()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
 
         val btnLogout: TextView = findViewById(R.id.textView_buttonLogout)
         if (userViewModel.firebaseUser.value == null) {

@@ -1,4 +1,4 @@
-package com.wo.burgerblend.activity
+package com.wo.burgerblend.activity.food
 
 import android.os.Bundle
 import android.widget.ImageView

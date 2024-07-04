@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wo.burgerblend.R
-import com.wo.burgerblend.activity.DetailFoodActivity
+import com.wo.burgerblend.activity.food.DetailFoodActivity
 import com.wo.burgerblend.domain.Food
 import com.wo.burgerblend.helper.CartHelper
 

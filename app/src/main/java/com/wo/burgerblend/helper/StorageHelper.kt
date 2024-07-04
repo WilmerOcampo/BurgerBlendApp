@@ -52,6 +52,11 @@ class StorageHelper(appContext: Context?) {
         preferences.edit().putString(key, TextUtils.join("‚‗‚", myStringList)).apply()
     }
 
+    /**
+     * Guarda 'playerList' como una lista de objetos Food en SharedPreferences con la clave 'key'
+     * @param key clave de SharedPreferences
+     * @param playerList lista de objetos Food a guardar
+     */
     fun putListObject(key: String?, playerList: ArrayList<Food>) {
         checkForNullKey(key)
         val gson = Gson()

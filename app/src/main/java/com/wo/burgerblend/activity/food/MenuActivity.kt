@@ -100,26 +100,26 @@ class MenuActivity : AppCompatActivity(), CategoryAdapter.ItemClickListener {
 
     private fun navigate() {
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
-       /* btnHome.setOnClickListener {
+
+        btnHome.setOnClickListener {
             finish()
-            startActivity(Intent(this, MainActivity::class.java))
-        }*/
+        }
         val btnCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
         btnCart.setOnClickListener {
-            finish()
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val btnProfile: LinearLayout = findViewById(R.id.linearLayout_profileAppButton)
         btnProfile.setOnClickListener {
-            finish()
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
         btnSettings.setOnClickListener {
-            finish()
             startActivity(Intent(this, SettingsActivity::class.java))
+            finish()
         }
     }
 

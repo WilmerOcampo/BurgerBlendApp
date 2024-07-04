@@ -20,7 +20,7 @@ import com.wo.burgerblend.UserViewModel
 import com.wo.burgerblend.activity.food.MenuActivity
 import com.wo.burgerblend.activity.user.ProfileActivity
 import com.wo.burgerblend.adapter.CartAdapter
-import com.wo.burgerblend.authentication.LoginActivity
+import com.wo.burgerblend.activity.auth.LoginActivity
 import com.wo.burgerblend.helper.CartHelper
 import kotlin.properties.Delegates
 
@@ -76,22 +76,21 @@ class CartActivity : AppCompatActivity() {
 
         btnHome.setOnClickListener {
             finish()
-            startActivity(Intent(this, MainActivity::class.java))
         }
         btnProfile.setOnClickListener {
-            finish()
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
         btnMenu.setOnClickListener {
-            finish()
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
         btnSettings.setOnClickListener {
-            finish()
             startActivity(Intent(this, SettingsActivity::class.java))
+            finish()
         }
     }
 
@@ -134,7 +133,7 @@ class CartActivity : AppCompatActivity() {
             if (userViewModel.firebaseUser.value == null) {
                 AlertDialog.Builder(this)
                     .setTitle("¡Inicia sesión para proceder con el pago!")
-                    .setPositiveButton("Aceptar") { dialog, _ ->
+                    .setPositiveButton("Aceptar") { _, _ ->
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }.setNegativeButton("Cancelar") { dialog, _ ->

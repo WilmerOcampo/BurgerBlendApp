@@ -25,16 +25,16 @@
             android:name=".activity.user.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".authentication.LoginActivity"
+            android:name=".activity.auth.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".authentication.SignUpActivity"
+            android:name=".activity.auth.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DetailFoodActivity"
+            android:name=".activity.food.DetailFoodActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

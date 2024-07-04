@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image_background"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".authentication.SignUpActivity">
+    tools:context=".activity.auth.SignUpActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,38 +15,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="20dp">
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/custom_edittext"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Registrarte"
+                        android:text="Registro"
                         android:textAlignment="center"
-                        android:textColor="@color/orange"
                         android:textSize="36sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/signup_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/baseline_person_24"
                         android:drawablePadding="8dp"
                         android:hint="Nombres"
@@ -59,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/baseline_person_24"
                         android:drawablePadding="8dp"
                         android:hint="Apellidos"
@@ -71,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/ic_baseline_email_24"
                         android:drawablePadding="8dp"
                         android:hint="Email"
@@ -83,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/ic_baseline_person_24"
                         android:drawablePadding="8dp"
                         android:hint="Direccion"
@@ -95,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/ic_baseline_phone_android_24"
                         android:drawablePadding="8dp"
                         android:hint="Celular"
@@ -108,7 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableStart="@drawable/ic_baseline_lock_24"
                         android:drawablePadding="8dp"
                         android:hint="Contraseña"
@@ -121,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/background_search"
                         android:drawableLeft="@drawable/ic_baseline_lock_24"
                         android:drawablePadding="8dp"
                         android:hint="Confirmar contraseña"
@@ -129,16 +120,20 @@
                         android:padding="8dp"
                         android:textColor="@color/black" />
 
-                    <Button
-                        android:id="@+id/signup_button"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         android:layout_marginTop="30dp"
-                        android:background="@drawable/orange_button"
                         android:gravity="center"
-                        android:text="Registrarte"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:padding="10dp">
+
+                        <include
+                            layout="@layout/button_register"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/loginRedirectText"
@@ -151,10 +146,7 @@
                         android:text="¿Ya eres usuario? Inicia Sesión"
                         android:textColor="@color/orange"
                         android:textSize="18sp" />
-
                 </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
 

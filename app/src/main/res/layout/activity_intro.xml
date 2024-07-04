@@ -77,11 +77,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_empezar"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/orange_button"
+        android:background="@drawable/orange_s_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

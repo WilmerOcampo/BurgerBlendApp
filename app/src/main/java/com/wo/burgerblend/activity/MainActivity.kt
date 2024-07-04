@@ -219,9 +219,4 @@ class MainActivity : AppCompatActivity(), /*NavigationActivity()*/
         }
         foodAdapter.foods(filteredList)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Glide.with(this).clear(imageProfile)
-    }
 }

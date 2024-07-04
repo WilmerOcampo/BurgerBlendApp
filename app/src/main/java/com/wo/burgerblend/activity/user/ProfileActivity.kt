@@ -23,7 +23,7 @@ import com.wo.burgerblend.activity.CartActivity
 import com.wo.burgerblend.activity.MainActivity
 import com.wo.burgerblend.activity.SettingsActivity
 import com.wo.burgerblend.activity.food.MenuActivity
-import com.wo.burgerblend.authentication.LoginActivity
+import com.wo.burgerblend.activity.auth.LoginActivity
 import com.wo.burgerblend.domain.User
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 
@@ -129,26 +129,24 @@ class ProfileActivity : AppCompatActivity() {
         val btnHome: LinearLayout = findViewById(R.id.linearLayout_homeAppButtonHome)
         btnHome.setOnClickListener {
             finish()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
         val btnCart: FloatingActionButton = findViewById(R.id.floatingActionButton_shoppingCartHome)
         btnCart.setOnClickListener {
-            finish()
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val btnMenu: LinearLayout = findViewById(R.id.linearLayout_productsAppButtonHome)
         btnMenu.setOnClickListener {
-            finish()
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val btnSettings: LinearLayout = findViewById(R.id.linearLayout_settingsAppButton)
         btnSettings.setOnClickListener {
-            finish()
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

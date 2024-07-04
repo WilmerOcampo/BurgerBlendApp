@@ -77,6 +77,7 @@
                 android:background="@drawable/background_search"
                 android:drawablePadding="10dp"
                 android:textSize="18sp"
+                android:layout_marginTop="5dp"
                 android:drawableStart="@drawable/baseline_fastfood_24"/>
 
             <TextView
@@ -86,6 +87,7 @@
                 android:background="@drawable/background_search"
                 android:drawableStart="@drawable/baseline_favorite_border_24"
                 android:drawablePadding="10dp"
+                android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:text="Favoritos"
                 android:textSize="18sp" />
@@ -107,6 +109,7 @@
                 android:drawableStart="@drawable/baseline_notifications_none_24"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Notificaciones"
                 android:textSize="18sp" />
 
@@ -118,6 +121,7 @@
                 android:drawableStart="@drawable/baseline_info_outline_24"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Información legal"
                 android:textSize="18sp" />
 
@@ -129,6 +133,7 @@
                 android:drawableStart="@drawable/baseline_menu_book_24"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Libro de reclamaciones"
                 android:textSize="18sp" />
 
